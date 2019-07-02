@@ -17,7 +17,14 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 
+import Select from '../Select/Select';
+import Track from '../Track/Track';
+import Review from '../Review/Review';
+import History from '../History/History'
+
+
 import './App.css';
+
 
 class App extends Component {
   componentDidMount () {
@@ -47,6 +54,28 @@ class App extends Component {
               exact
               path="/home"
               component={UserPage}
+            />
+            {/* This is the user page to select workouts and exercise */}
+            <ProtectedRoute
+            exact 
+            path="/select"
+            component={Select}
+            />
+            {/* The user can track their workouts/exercises on this page and make necessary edits on this page */}
+             <ProtectedRoute
+            exact 
+            path="/track"
+            component={Track}
+            />
+             <ProtectedRoute
+            exact 
+            path="/review"
+            component={Review}
+            />
+             <ProtectedRoute
+            exact 
+            path="/history"
+            component={History}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
