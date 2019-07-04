@@ -1,22 +1,33 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class dropdown extends Component{
-    render(){
-        return<div>
-            <></>
-            <div style ={{margin:'16px', position:'relative'}}>
-                <dropdown
-                workouts={[
-                    {value: 'Chest',  id: 1 }, 
-                    {value: 'Glutes',  id: 2 },
-                    {value: 'Shoulders',  id: 3 }, 
-                    {value: 'Legs',  id: 4 }, 
-                    {value: 'Back',  id: 5 },  
-                ]}
-                />
-                </div>
+class dropdown extends Component {
+    workouts = () => {
+        this.props.dispatch ({type:'FETCH_WORKOUT'});
+    }
+
+    exercises = () => {
+        this.props.dispatch ({type: 'FETCH_EXERCISE'});
+    }
+
+    componentDidMount(){
+        this.workouts();
+        this.exercises();
+    }
+
+    render() {
+        return (
+            <div>
+                {this.props.reduxState.map(workout => {return })}
             </div>
+            
+        
+            )
     }
 }
 
-export default dropdown;
+const mapReduxStateToProps = reduxState => ({ reduxState })
+export default connect(mapReduxStateToProps)(dropdown)
+
+//
+

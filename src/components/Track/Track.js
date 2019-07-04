@@ -6,6 +6,16 @@ import {connect} from 'react-redux';
 
 
 class Track extends Component {
+  componentDidMount () {
+    this.displayWorkoutsOnTrack()
+  }
+
+
+  displayWorkoutsOnTrack = () => {
+    console.log('we need to log and test this');
+    this.props.dispatch({type:'DISPLAY_NEW_WORKOUT'})
+  }
+
   // Renders the entire app on the DOM
   render() {
     return (
