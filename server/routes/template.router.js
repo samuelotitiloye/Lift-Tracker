@@ -50,29 +50,63 @@ router.get('/user', (req, res) => {
 /**
  * POST route template
  */
+// router.post('/workout', async (req, res) => {
+//         console.log('req.body:', req.body);
+//         const client = await pool.connect();
+//         try {
+//             const queryText = `INSERT INTO "workout_exercise" ("workout_id", "exercise_id", "weight", "sets", "reps")
+//         VALUES ($1, $2, $3, $4, $5) RETURNING "workout_exercise"."id";`
+//             req.body.forEach(workout => {
+//                 client.query(queryText, [workout.workout, workout.exercise, workout.weight, workout.sets, workout.reps]) // queryText replaces our req.body
+//                     .then((result) => {
+//                         console.log('result:', result.rows);
+//                     }).then(() => {
+//                         `SELECT "workout_id", "exercise_id", "weight", "sets", "reps", "workout", "exercise" FROM "workout_exercise" 
+//                         JOIN "workout"
+//                         ON "workout_id"="workout"."id"
+//                         JOIN "exercise"
+//                         ON "exercise_id"="exercise"."id"
+//                         WHERE "workout_id" =result.rows[0].id;`
+//                     }).then((result) => {
+//                         res.send(result.rows)
+//                     })
+//             })
+
+//         } catch (error) {
+//             console.log('error making INSERT query', error);
+//             res.sendStatus(500);
+//         } finally {
+//             client.release();
+//         }
+//     });
+
+
 router.post('/workout', async (req, res) => {
-    console.log('req.body:', req.body);
     const client = await pool.connect();
     try {
-        const queryText = `INSERT INTO "workout_exercise" ("workout_id", "exercise_id", "weight", "sets", "reps")
-    VALUES ($1, $2, $3, $4, $5) RETURNING "workout_exercise"."id";`
-        req.body.forEach(workout => {
-            client.query(queryText, [workout.workout, workout.exercise, workout.weight, workout.sets, workout.reps]) // queryText replaces our req.body
-                .then((result) => {
-                    console.log('result:', result.rows);
-                }).then(() => {
-                    `SELECT "workout_id", "exercise_id", "weight", "sets", "reps", "workout", "exercise" FROM "workout_exercise" 
-                    JOIN "workout"
-                    ON "workout_id"="workout"."id"
-                    JOIN "exercise"
-                    ON "exercise_id"="exercise"."id"
-                    WHERE "workout_id" =result.rows[0].id;`
-                }).then((result) => {
-                    res.send(result.rows)
-                })
-        })
-
+        client.query('BEGIN');
+        const promiseResult = await Promise.all(req.body.map(workout => { // map through req.body array
+            const insertQuery = `INSERT INTO "workout_exercise" ("workout_id", "exercise_id", "weight", "sets", "reps")
+        VALUES ($1, $2, $3, $4, $5) RETURNING "workout_exercise"."id";`
+            return client.query(insertQuery, [workout.workout, workout.exercise, workout.weight, workout.sets, workout.reps])
+        }))
+            .then( async(result) => {
+                const newResult = await Promise.all(result.map(exercise =>{
+                   // console.log('exercise:',exercise.rows[0].id);
+                    const selectQuery = `SELECT "weight", "sets", "reps", "workout"."name", "exercise", "workout_exercise"."date", "exercise"."name" AS "exercise_name" 
+                    FROM "workout_exercise" JOIN "workout" ON "workout_id"="workout"."id" JOIN "exercise"
+                    ON "exercise_id"="exercise"."id" WHERE "workout_exercise"."id" =$1;`
+                    return client.query(selectQuery, [exercise.rows[0].id])
+                }))
+                // console.log('new result:',newResult)
+                return newResult;
+            })
+        const sortResult = sort(promiseResult);
+        console.log('sort result', sortResult)
+        client.query('COMMIT');
+        res.send(sortResult);
     } catch (error) {
+        client.query('ROLLBACK');
         console.log('error making INSERT query', error);
         res.sendStatus(500);
     } finally {
@@ -80,16 +114,18 @@ router.post('/workout', async (req, res) => {
     }
 });
 
-// router.get('/workout/:id', (req, res))
-
-// router.put('/workout_exercise', (req, res) => {
-//     console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!', req.params);
-//     const queryText = ``
-// })
+const sort = (array) => {
+    let newArray = [];
+    for (let i = 0; i < array.length; i++) {
+        const element = array[i].rows;
+        newArray.push(...element);
+    }
+    return newArray;
+}
 
 module.exports = router;
 
-
+// "workout_id", "exercise_id",
 
 // router.put('/update', (req, res) => {
 //     console.log('we are updating');
@@ -103,3 +139,12 @@ module.exports = router;
 //             res.send(result.rows)
 //         })
 // })
+
+// 
+
+// router.get('/workout/:id', (req, res))
+
+router.put('/workout_exercise', (req, res) => {
+    console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!', req.params);
+    const queryText = `UPDATE ""`
+})

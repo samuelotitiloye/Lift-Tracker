@@ -105,9 +105,9 @@ class Select extends Component {
                         }
                         showMenuIconButton={false}
                     />
-                    <left>
+                    <div>
                         {this.pageControl()}
-                    </left>
+                    </div>
                     <pre>
                         {JSON.stringify(this.state, null, 2)}
 
@@ -141,13 +141,12 @@ class Select extends Component {
                         }
                         showMenuIconButton={false}
                     />
-                    <left>
+                    <div>
                         {this.pageControl()}
-                    </left>
+                    </div>
                     <DropDownMenu
                         value={this.state.workoutObject.exercise}
                         onChange={this.handleChangeExercise}
-
                     >
                         <MenuItem value={1} primaryText="Bench Press" />
                         <MenuItem value={2} primaryText="Hip Thrust" />
