@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put as dispatch } from 'redux-saga/effects';
 import {takeLatest} from 'redux-saga/effects';
 
-//this will hold all of ur sagas and must be exported to the rootSaga
+//this will hold all of our sagas and must be exported to the rootSaga
 // this.props.dispatch({type: 'POST_WORKOUT_EXERCISE', payload: this.state})
 
 
@@ -24,12 +24,17 @@ function* postWorkoutToExercise (action) {
     
 // }
 
+function* updateWorkoutSaga (action) {
+    yield axios.put('/api/template/workout_exercise', action.payload);
+}
+
 
 
 
 function* exerciseSaga() {
     // from select.js ditpatched action to save workout & exercises and post the data to the database
     yield takeLatest('POST_WORKOUT_EXERCISE', postWorkoutToExercise); 
+    yield takeLatest('UPDATE_WORKOUT', updateWorkoutSaga);
     // from Track.js dispatched action, runs displayWorkout generator function
     // yield takeLatest('DISPLAY_NEW_WORKOUT', displayWorkout)
   }

@@ -108,10 +108,9 @@ class Select extends Component {
                     <div>
                         {this.pageControl()}
                     </div>
-                    <pre>
+                    {/* <pre>
                         {JSON.stringify(this.state, null, 2)}
-
-                    </pre>
+                    </pre> */}
                     <DropDownMenu
                         value={this.state.workoutObject.workout}
                         onChange={this.handleChangeWorkout}

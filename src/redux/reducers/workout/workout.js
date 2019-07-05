@@ -1,3 +1,7 @@
+import { combineReducers } from 'redux';
+
+
+
 // this will house all of our workout REDUCERS  and must be exported to the root/ main reducer
 
 
@@ -12,14 +16,14 @@ const workout = (state = [], action) => {
 }
 
 // use this reducer to SET workout to the history page
-// const update = (state = [], action) => {
-//     switch(action.type) {
-//         case 'SET_UPDATE':
-//             return action.payload;
-//             default:
-//                 return state;
-//     }
-// }
+const update = (state = [], action) => {
+    switch(action.type) {
+        case 'SET_UPDATE':
+            return action.payload;
+            default:
+                return state;
+    }
+}
 
 // const workout = (state = [], action) => {
 //     switch (action.type) {
@@ -32,4 +36,7 @@ const workout = (state = [], action) => {
 
 
 
-export default workout
+export default combineReducers({
+    workout,
+    update
+}) 

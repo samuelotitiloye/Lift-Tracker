@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   HashRouter as Router,
   Route,
-  Redirect,
+  // Redirect,
   Switch,
 } from 'react-router-dom';
 
@@ -19,8 +19,9 @@ import InfoPage from '../InfoPage/InfoPage';
 
 import Select from '../Select/Select';
 import Track from '../Track/Track';
-import Review from '../Review/Review';
-import History from '../History/History'
+import Review from '../Welcome/welcome';
+import History from '../History/History';
+import Welcome from '../Welcome/welcome';
 
 
 import './App.css';
@@ -38,9 +39,15 @@ class App extends Component {
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            {/* <Redirect exact from="/" to="/home" /> */}
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
+             
+             <Route
+              exact
+              path="/Welcome"
+              component={Welcome}
+            />
             <Route
               exact
               path="/about"

@@ -123,6 +123,23 @@ const sort = (array) => {
     return newArray;
 }
 
+// this is our update route for the track workout page when the we edit a workout
+router.put('/workout_exercise', (req, res) => {
+    console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!', req.body);
+    const queryText = `UPDATE "workout_exercise" 
+    SET "workout_id" =$1, 
+    "exercise_id" =$2, 
+    "weight"=$3, 
+    "sets"=$4,
+    "reps" =$5;`;
+    const updateWorkout = [req.body.workout_id, req.body.exercise_id, req.body.weight, req.body.sets, req.body.reps];
+    pool.query(queryText, updateWorkout)
+    .then(result => {
+        console.log('result of the workout/exercise update/edit!!!!!!!!!!!', result.rows);
+        res.send(result.rows)
+    })
+})
+
 module.exports = router;
 
 // "workout_id", "exercise_id",
@@ -143,8 +160,3 @@ module.exports = router;
 // 
 
 // router.get('/workout/:id', (req, res))
-
-router.put('/workout_exercise', (req, res) => {
-    console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!', req.params);
-    const queryText = `UPDATE ""`
-})

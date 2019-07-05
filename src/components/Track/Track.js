@@ -5,20 +5,26 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Link } from 'react-router-dom';
 
 
 class Track extends Component {
   state = {
     inEditMode: false,
+    workout: {
+      workout: '',
+      exercise: '',
+      weight: '',
+      sets: '',
+      reps: '',
+    }
   }
-  // componentDidMount() {
-  //   // this.displayWorkoutsOnTrack()
-  // }
+  componentDidMount() {
+  }
 
   handleClickToEdit = () => {
     console.log('i can update my workouts!!!!!!!!!!!!!!!!!!!');
     this.setState({ inEditMode: !this.state.inEditMode })
+    this.props.dispatch({ type: 'UPDATE_WORKOUT', payload: this.state })
   }
 
   handleLogWorkout = () => {
@@ -26,93 +32,91 @@ class Track extends Component {
     this.props.history.push('/history')
   }
 
-
   handleAddEdit = () => {
     console.log('we are going to add our newly edited workout/exercise');
+    this.props.dispatch({
+      type: 'UPDATE_WORKOUT',
+      payload: this.state.workout,
+    })
   }
-
 
   // Renders the entire app on the DOM
   render() {
-    if (this.state.inEditMode) {
-      return (
-        <>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Workout</TableCell>
-                <TableCell>Exercise</TableCell>
-                <TableCell>Weight(lb)</TableCell>
-                <TableCell>Sets</TableCell>
-                <TableCell>Reps</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Add</TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {this.props.reduxState.workout.length < 1 ? '' : this.props.reduxState.workout.map(exercise =>
+    return (
+      <div>
+        <pre>
+          {JSON.stringify(this.props.reduxState.workout.workout, null, 2)}
+        </pre>
+        {this.state.inEditMode ?
+          <>
+            <Table>
+              <TableHead>
                 <TableRow>
-                  <TableCell><input placeholder={exercise.name} /></TableCell>
-                  <TableCell><input placeholder={exercise.exercise_name} /></TableCell>
-                  <TableCell><input placeholder={exercise.weight} /></TableCell>
-                  <TableCell><input placeholder={exercise.sets} /></TableCell>
-                  <TableCell><input placeholder={exercise.reps} /></TableCell>
-                  <TableCell><input placeholder={exercise.date} /></TableCell>
-                  <TableCell><button onClick={this.handleAddEdit}>Add</button></TableCell>
-                </TableRow>)}
-            </TableBody>
-          </Table>
+                  <TableCell>Workout</TableCell>
+                  <TableCell>Exercise</TableCell>
+                  <TableCell>Weight(lb)</TableCell>
+                  <TableCell>Sets</TableCell>
+                  <TableCell>Reps</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Add</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
+                  <TableRow>
+                    <TableCell><input placeholder={exercise.name} /></TableCell>
+                    <TableCell><input placeholder={exercise.exercise_name} /></TableCell>
+                    <TableCell><input placeholder={exercise.weight} /></TableCell>
+                    <TableCell><input placeholder={exercise.sets} /></TableCell>
+                    <TableCell><input placeholder={exercise.reps} /></TableCell>
+                    <TableCell><input placeholder={exercise.date} /></TableCell>
+                    <TableCell><button onClick={this.handleAddEdit}>Add</button></TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+            <button onClick={this.handleClickToEdit}>Edit Workout</button>
+            <button onClick={this.handleLogWorkout}>Log Workout</button>
+          </>
+          :
+          // write a conditional to check if the page has data from select paage, if it does not, show nothing, 
+          // if there is data map through the data and display in a table.
+          // TO DO : Make an alert if add workout is not clicked - to add workout
+          // make an alert if save workout is clicked - to show no workout to add
 
-          <button onClick={this.handleClickToEdit}>Edit Workout</button>
-          <button onClick={this.handleLogWorkout}>Log Workout</button>
-        </>
-      )
-
-    } else {
-      return (
-        //write a conditional to check if the page has data from select paage, if it does not, show nothing, 
-        //if there is data map through the data and display in a table.
-        //TO DO : Make an alert if add workout is not clicked - to add workout
-        //make an alert if save workout is clicked - to show no workout to add
-        //
-        <>
-          <pre>
+          <>
+            <pre>
+              thing!
             {JSON.stringify(this.props.reduxState.workout, null, 2)}
-          </pre>
-
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Workout</TableCell>
-                <TableCell>Exercise</TableCell>
-                <TableCell>Weight(lb)</TableCell>
-                <TableCell>Sets</TableCell>
-                <TableCell>Reps</TableCell>
-                <TableCell>Date</TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {this.props.reduxState.workout.length < 1 ? '' : this.props.reduxState.workout.map(exercise =>
+            </pre>
+            <Table>
+              <TableHead>
                 <TableRow>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell>{exercise.exercise_name}</TableCell>
-                  <TableCell>{exercise.weight}</TableCell>
-                  <TableCell>{exercise.sets}</TableCell>
-                  <TableCell>{exercise.reps}</TableCell>
-                  <TableCell>{exercise.date}</TableCell>
-
-                </TableRow>)}
-            </TableBody>
-          </Table>
-
-          <button onClick={this.handleClickToEdit}>Edit Workout</button>
-          <button onClick={this.handleLogWorkout}>Log Workout</button>
-        </>
-
-      )
-    }
+                  <TableCell>Workout</TableCell>
+                  <TableCell>Exercise</TableCell>
+                  <TableCell>Weight(lb)</TableCell>
+                  <TableCell>Sets</TableCell>
+                  <TableCell>Reps</TableCell>
+                  <TableCell>Date</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
+                  <TableRow>
+                    <TableCell>{exercise.name}</TableCell>
+                    <TableCell>{exercise.exercise_name}</TableCell>
+                    <TableCell>{exercise.weight}</TableCell>
+                    <TableCell>{exercise.sets}</TableCell>
+                    <TableCell>{exercise.reps}</TableCell>
+                    <TableCell>{exercise.date}</TableCell>
+                  </TableRow>)}
+              </TableBody>
+            </Table>
+            <button onClick={this.handleClickToEdit}>Edit Workout</button>
+            <button onClick={this.handleLogWorkout}>Log Workout</button>
+          </>
+        }
+      </div>)
   }
 }
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+
+// where am i requiring this component? what does it exist?
 class dropdown extends Component {
     workouts = () => {
         this.props.dispatch ({type:'FETCH_WORKOUT'});
