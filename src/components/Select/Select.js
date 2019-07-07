@@ -10,8 +10,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import '../App/App.';
 
 class Select extends Component {
-
-
     state = {
         workoutObject: {
             workout: 0,
@@ -172,7 +170,9 @@ class Select extends Component {
 const mapReduxStateToProps = reduxState => ({ reduxState })
 export default connect(mapReduxStateToProps)(Select)
 
+
 //grab the data from the dropdown list when the save workout button is clicked
 //when save workout button is clicked push to the track workout page
+//add inputs for weight, sets and reps to reduce the number of routes needed
 //show the newly grabbed data on the track page in a table with 3 added columns for lbs/sets/reps
-//
+

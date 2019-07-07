@@ -18,24 +18,27 @@ class Track extends Component {
       reps: '',
     }
   }
+
   componentDidMount() {
   }
 
   handleClickToEdit = () => {
     console.log('i can update my workouts!!!!!!!!!!!!!!!!!!!');
     this.setState({ inEditMode: !this.state.inEditMode })
-    this.props.dispatch({ type: 'UPDATE_WORKOUT', payload: this.state })
+    // this.props.dispatch({ type: 'UPDATE_WORKOUT', payload: this.state }) //this action will be called in 
   }
 
   handleLogWorkout = () => {
     console.log('we can totally save/log our workout!!!!');
-    this.props.history.push('/history')
+    this.props.history.push('/history');
+    // this.setState({});
+    // this.props.dispatch({});
   }
 
   handleAddEdit = () => {
     console.log('we are going to add our newly edited workout/exercise');
     this.props.dispatch({
-      type: 'UPDATE_WORKOUT',
+      type: 'UPDATE_WORKOUT', // dispatching this action to ? 
       payload: this.state.workout,
     })
   }
@@ -81,14 +84,14 @@ class Track extends Component {
           :
           // write a conditional to check if the page has data from select paage, if it does not, show nothing, 
           // if there is data map through the data and display in a table.
+
           // TO DO : Make an alert if add workout is not clicked - to add workout
           // make an alert if save workout is clicked - to show no workout to add
 
           <>
-            <pre>
-              thing!
+            {/* <pre>
             {JSON.stringify(this.props.reduxState.workout, null, 2)}
-            </pre>
+            </pre> */}
             <Table>
               <TableHead>
                 <TableRow>
