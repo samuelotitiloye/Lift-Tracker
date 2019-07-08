@@ -9,14 +9,15 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/workout_exercise', (req, res) => {
     console.log('getting workouts from the database');
     //make query request to the database
-    const queryText = `SELECT "weight", "sets", "reps", "workout", "exercise" 
-    FROM "workout_exercise", 
-    JOIN "workout" ,
-    ON "workout_id"="workout"."id",
-    JOIN "exercise",
-    ON "exercise_id"="exercise"."id", 
-    WHERE "workout_exercise"."id"=$1;`
-    pool.query(queryText)
+    const queryText = `SELECT "weight", "sets", "reps", "workout"."name", "workout"."date", "exercise"."name" as "exercise", "workout_exercise"."id"
+    FROM "workout_exercise" 
+    JOIN "workout" 
+    ON "workout_id"="workout"."id"
+    JOIN "exercise"
+    ON "exercise_id"="exercise"."id" 
+    WHERE "workout_exercise"."id"=$1`
+    console.log(req.query);
+    pool.query(queryText, [req.query.id])
         .then((result) => {
             console.log(result.rows);
             res.send(result.rows);
@@ -42,7 +43,7 @@ router.post('/workout', rejectUnauthenticated, async (req, res) => {
             .then(async (result) => {
                 const newResult = await Promise.all(result.map(exercise => {
                     // console.log('exercise:',exercise.rows[0].id);
-                    const selectQuery = `SELECT "weight", "sets", "reps", "workout"."name", "exercise", "workout_exercise"."date", "exercise"."name" AS "exercise_name" 
+                    const selectQuery = `SELECT "workout_exercise"."id","weight", "sets", "reps", "workout"."name", "exercise", "workout_exercise"."date", "exercise"."name" AS "exercise_name" 
                     FROM "workout_exercise" 
                     JOIN "workout" 
                     ON "workout_id"="workout"."id" 
@@ -82,21 +83,23 @@ router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
     const queryText = `UPDATE "workout_exercise" 
     SET "workout_id" =$1, 
     "exercise_id" =$2, 
-    "weight"=$3, 
+    "weight"=$3,
     "sets"=$4,
-    "reps" =$5,
-    WHERE "workout_id"=$1,
-    RETURNING "workout", "exercise", "weight", "sets", "reps" ;`;
-    const updateWorkout = [req.body.workout, req.body.exercise, req.body.weight, req.body.sets, req.body.reps];
+    "reps" =$5
+    WHERE "workout_exercise"."id"=$6
+    RETURNING "workout_exercise"."id";`;
+    const updateWorkout = [req.body.workout, req.body.exercise, req.body.weight, req.body.sets, req.body.reps, req.body.id];
+    console.log('update workout',updateWorkout)
     pool.query(queryText, updateWorkout)
         .then(result => {
-            console.log('result of the workout/exercise update/edit!!!!!!!!!!!', result.rows);
             res.send(result.rows)
         }).catch((error) => {
             console.log('error making UPDATE/PUT request', error);
             res.sendStatus(500)
         })
 })
+
+// RETURNING "workout", "exercise", "weight", "sets", "reps" 
 
 
 // this is our delete route for the workout history page
@@ -115,48 +118,3 @@ router.delete('/workout_exercise/:id', rejectUnauthenticated, (req, res) => {
 
 module.exports = router;
 
-// "workout_id", "exercise_id",
-
-// router.put('/update', (req, res) => {
-//     console.log('we are updating');
-//     const queryText = `UPDATE "movies" 
-//     SET "title"=$1, "description"=$2
-//     WHERE "id"=$3 RETURNING "id", "title", "description", "poster";`;
-//     const updateName = [req.body.title, req.body.description, req.body.id];
-//     pool.query(queryText, updateName)
-//         .then(result => {
-//             console.log('returning the result of the update!!!!!!!!!!!', result.rows);
-//             res.send(result.rows)
-//         })
-// })
-
-// 
-
-// router.get('/workout/:id', (req, res))
-// router.get('/exercise', (req, res) => {
-//     console.log('getting exercise from the database');
-//     //make query request to the database
-//     const queryText = `SELECT * FROM "exercise" ORDER BY "id";`
-//     pool.query(queryText)
-//         .then((result) => {
-//             console.log(queryText);
-//             res.send(result.rows);
-//         }).catch((error) => {
-//             console.log('error completing SELECT exercise query', error);
-//             res.sendStatus(500);
-//         });
-// });
-
-// router.get('/user', (req, res) => {
-//     console.log('retrieving all users from the database');
-//     //make query request to the database for user data
-//     const queryText = `SELECT * FROM "user" ORDER BY "id";`
-//     pool.query(queryText)
-//         .then((result) => {
-//             console.log(result.rows);
-//             res.send(result.rows);
-//         }).catch((error) => {
-//             console.log('error completing SELECT "user" query');
-//             res.sendStatus(500);
-//         })
-// })

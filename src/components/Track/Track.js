@@ -5,6 +5,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import AppBar from 'material-ui/AppBar';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class Track extends Component {
@@ -13,14 +17,25 @@ class Track extends Component {
     workout: {
       workout: '',
       exercise: '',
-      weight: '',
+      weight: this.props.reduxState.workout.workout,
       sets: '',
       reps: '',
-      id:this.props.reduxState.workout.id
+      id: ''
     }
   }
 
   componentDidMount() {
+  }
+
+
+  handleChangeNewWorkout = (event, index, value) => {
+    // set workout to the value/workout selected
+    this.setState({ workout: { ...this.state.workout, workout: value } });
+  }
+
+  handleChangeWorkout = (event, index, value) => {
+    // set workout to the value/workout selected
+    this.setState({ workout: { ...this.state.workout, exercise: value } });
   }
 
   handleChangeInEdit = (propertyName) => (event) => {
@@ -52,9 +67,16 @@ class Track extends Component {
 
   handleAddEdit = () => {
     console.log('we are going to add our newly edited workout/exercise');
-    this.props.dispatch({
-      type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js componenet)
-      payload: this.state.workout,
+    this.setState({
+      workout: {
+        ...this.state.workout,
+        id: this.props.reduxState.workout.workout[0].id
+      }
+    }, () => {
+      this.props.dispatch({
+        type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js componenet)
+        payload: this.state.workout,
+      })
     })
   }
 
@@ -62,9 +84,12 @@ class Track extends Component {
   render() {
     return (
       <div>
-        <pre>
-          {JSON.stringify(this.props.reduxState.workout.workout, null, 2)}
+        {/* <pre>
+          {JSON.stringify(this.props, null, 2)}
         </pre>
+        <pre>
+          {JSON.stringify(this.state)}
+        </pre> */}
         {this.state.inEditMode ?
           <>
             <Table>
@@ -82,12 +107,42 @@ class Track extends Component {
               <TableBody>
                 {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
                   <TableRow>
-                    <TableCell><input placeholder={exercise.name} onChange={this.handleChangeInEdit('workout')} id='workout' /></TableCell>
-                    <TableCell><input placeholder={exercise.exercise_name} onChange={this.handleChangeInEdit('exercise_name')} id='exercise' /></TableCell>
+
+                    <TableCell> <MuiThemeProvider>
+                      <DropDownMenu
+                        value={this.state.workout.workout}
+                        onChange={this.handleChangeNewWorkout}
+                      >
+                        <MenuItem value={1} primaryText="Chest" />
+                        <MenuItem value={2} primaryText="Glutes" />
+                        <MenuItem value={3} primaryText="Shoulders" />
+                        <MenuItem value={4} primaryText="Legs" />
+                        <MenuItem value={5} primaryText="Back" />
+
+                      </DropDownMenu>
+                    </MuiThemeProvider></TableCell>
+                    <TableCell>
+
+
+                      <MuiThemeProvider>
+                        <DropDownMenu
+                          value={this.state.workout.exercise}
+                          onChange={this.handleChangeWorkout}
+                        >
+                          <MenuItem value={1} primaryText="Bench Press" />
+                          <MenuItem value={2} primaryText="Hip Thrust" />
+                          <MenuItem value={3} primaryText="Over Head Press" />
+                          <MenuItem value={4} primaryText="Squats" />
+                          <MenuItem value={5} primaryText="Deadlifts" />
+
+                        </DropDownMenu>
+                      </MuiThemeProvider>
+
+                    </TableCell>
                     <TableCell><input placeholder={exercise.weight} onChange={this.handleChangeInEdit('weight')} id='weight' /></TableCell>
                     <TableCell><input placeholder={exercise.sets} onChange={this.handleChangeInEdit('sets')} id='sets' /></TableCell>
                     <TableCell><input placeholder={exercise.reps} onChange={this.handleChangeInEdit('reps')} id='reps' /></TableCell>
-                    {/* <TableCell><input placeholder={exercise.date} onChange={this.handleChangeInEdit('date')} /></TableCell> */}
+                    <TableCell><input placeholder={exercise.date} readOnly/></TableCell>
                     <TableCell><button onClick={this.handleAddEdit}>Add</button></TableCell>
                   </TableRow>
                 )}
@@ -105,7 +160,7 @@ class Track extends Component {
 
           <>
             <pre>
-            {JSON.stringify(this.props.reduxState.workout_id, null, 2)}
+              {JSON.stringify(this.props.reduxState.workout_id, null, 2)}
             </pre>
             <Table>
               <TableHead>

@@ -9,10 +9,10 @@ import TableRow from '@material-ui/core/TableRow';
 
 
 class History extends Component {
-    handleDeleteWorkout = () => {
+    handleDeleteWorkout = (event) => {
         // this.props.history.push('/select')
         console.log('Deleting single workout from the database/ and our history page');
-        this.state({ type: 'DELETE_A_WORKOUT', payload: this.state.req.params })
+        this.props.dispatch ({ type: 'DELETE_A_WORKOUT', payload:event.target.value})
     }
     render() {
         return (
@@ -33,20 +33,20 @@ class History extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
+                            {this.props.reduxState.workout.getNewWorkout.length > 0 && this.props.reduxState.workout.getNewWorkout.map(exercise =>
                                 <TableRow>
                                     <TableCell>{exercise.name}</TableCell>
-                                    <TableCell>{exercise.exercise_name}</TableCell>
+                                    <TableCell>{exercise.exercise}</TableCell>
                                     <TableCell>{exercise.weight}</TableCell>
                                     <TableCell>{exercise.sets}</TableCell>
                                     <TableCell>{exercise.reps}</TableCell>
                                     <TableCell>{exercise.date}</TableCell>
-                                    <TableCell><button onClick={this.handleDeleteWorkout}>Delete</button></TableCell>
+                                    <TableCell><button value={exercise.id} onClick={this.handleDeleteWorkout}>Delete</button></TableCell>
                                 </TableRow>)}
                         </TableBody>
                     </Table>
                     <pre>
-                        {JSON.stringify(this.props.reduxState.workout_id, null, 2)}
+                        {/* {JSON.stringify(this.props.reduxState, null, 2)} */}
                     </pre>
                 </>
 

@@ -23,14 +23,14 @@ const update = (state = [], action) => {
     }
 }
 
-// const delete = (state = [], action) => {
-//     switch (action.type) {
-//         case 'POST_WORKOUT':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// }
+const deleteWorkout = (state = [], action) => {
+    switch (action.type) {
+        case '_':
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 const getNewWorkout = (state = [], action) => {
     switch (action.type) {
@@ -47,4 +47,5 @@ export default combineReducers({
     workout,
     update,
     getNewWorkout,
+    deleteWorkout
 }) 
