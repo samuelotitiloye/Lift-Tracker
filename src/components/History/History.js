@@ -12,13 +12,13 @@ class History extends Component {
     handleDeleteWorkout = () => {
         // this.props.history.push('/select')
         console.log('Deleting single workout from the database/ and our history page');
-        this.state({type: DELETE_WORKOUT, payload:this.state}) 
+        this.state({ type: 'DELETE_A_WORKOUT', payload: this.state.req.params })
     }
     render() {
         return (
             <div>
                 <>
-                    WE WILL DISPLAY WORKOUT HISTORY HERE
+                    {/* WE WILL DISPLAY WORKOUT HISTORY HERE */}
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -29,7 +29,7 @@ class History extends Component {
                                 <TableCell>Reps</TableCell>
                                 <TableCell>Date</TableCell>
                                 <TableCell>Date</TableCell>
-                                
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -44,14 +44,12 @@ class History extends Component {
                                     <TableCell><button onClick={this.handleDeleteWorkout}>Delete</button></TableCell>
                                 </TableRow>)}
                         </TableBody>
-                 
-                 
                     </Table>
                     <pre>
-                        {JSON.stringify(this.props.reduxState, null, 2)}
+                        {JSON.stringify(this.props.reduxState.workout_id, null, 2)}
                     </pre>
                 </>
-           
+
             </div>
         )
     }
@@ -60,5 +58,9 @@ class History extends Component {
 const mapReduxStateToProps = reduxState => ({ reduxState })
 export default connect(mapReduxStateToProps)(History);
 
+
+//TODO: authentication and authorization for new users
+//comment out JSON.stringify(s)
+//
 
 

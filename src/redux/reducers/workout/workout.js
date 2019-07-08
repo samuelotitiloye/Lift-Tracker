@@ -15,15 +15,15 @@ const workout = (state = [], action) => {
 
 // use this reducer to SET workout to the history page
 const update = (state = [], action) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'SET_UPDATE':
             return action.payload;
-            default:
-                return state;
+        default:
+            return state;
     }
 }
 
-// const workout = (state = [], action) => {
+// const delete = (state = [], action) => {
 //     switch (action.type) {
 //         case 'POST_WORKOUT':
 //             return action.payload;
@@ -32,18 +32,19 @@ const update = (state = [], action) => {
 //     }
 // }
 
-// const workout = (state = [], action) => {
-//     switch (action.type) {
-//         case 'DELETE_WORKOUT':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// }
+const getNewWorkout = (state = [], action) => {
+    switch (action.type) {
+        case 'GET_WORKOUT':
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 
 
 export default combineReducers({
     workout,
-    update
+    update,
+    getNewWorkout,
 }) 

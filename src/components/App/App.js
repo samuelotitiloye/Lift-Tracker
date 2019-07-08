@@ -19,7 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 
 import Select from '../Select/Select';
 import Track from '../Track/Track';
-import Review from '../Welcome/welcome';
+// import Review from '../Welcome/welcome';
 import History from '../History/History';
 import Welcome from '../Welcome/welcome';
 
@@ -74,11 +74,11 @@ class App extends Component {
             path="/track"
             component={Track}
             />
-             <ProtectedRoute
+             {/* <ProtectedRoute
             exact 
             path="/review"
             component={Review}
-            />
+            /> */}
              <ProtectedRoute
             exact 
             path="/history"

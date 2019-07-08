@@ -24,7 +24,7 @@ class dropdown extends Component {
         return (
             <div>
                 <pre>
-                {this.props.reduxState.workouts.map(workout => { return })}
+                    {this.props.reduxState.workouts.map(workout => { return })}
                 </pre>
             </div>
         )

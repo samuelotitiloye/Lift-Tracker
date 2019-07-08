@@ -16,10 +16,25 @@ class Track extends Component {
       weight: '',
       sets: '',
       reps: '',
+      id:this.props.reduxState.workout.id
     }
   }
 
   componentDidMount() {
+  }
+
+  handleChangeInEdit = (propertyName) => (event) => {
+    //we need to spread state , and event in order to keep the original state then 
+    //edit/update the value based on what is changed in the input field
+    //needed to give each input field an id in editMode in order to grab 
+    //them once and use one function to target their new value
+    this.setState({
+      ...this.state,
+      workout: {
+        ...this.state.workout,
+        [propertyName]: event.target.value,
+      }
+    });
   }
 
   handleClickToEdit = () => {
@@ -38,7 +53,7 @@ class Track extends Component {
   handleAddEdit = () => {
     console.log('we are going to add our newly edited workout/exercise');
     this.props.dispatch({
-      type: 'UPDATE_WORKOUT', // dispatching this action to ? 
+      type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js componenet)
       payload: this.state.workout,
     })
   }
@@ -67,12 +82,12 @@ class Track extends Component {
               <TableBody>
                 {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
                   <TableRow>
-                    <TableCell><input placeholder={exercise.name} /></TableCell>
-                    <TableCell><input placeholder={exercise.exercise_name} /></TableCell>
-                    <TableCell><input placeholder={exercise.weight} /></TableCell>
-                    <TableCell><input placeholder={exercise.sets} /></TableCell>
-                    <TableCell><input placeholder={exercise.reps} /></TableCell>
-                    <TableCell><input placeholder={exercise.date} /></TableCell>
+                    <TableCell><input placeholder={exercise.name} onChange={this.handleChangeInEdit('workout')} id='workout' /></TableCell>
+                    <TableCell><input placeholder={exercise.exercise_name} onChange={this.handleChangeInEdit('exercise_name')} id='exercise' /></TableCell>
+                    <TableCell><input placeholder={exercise.weight} onChange={this.handleChangeInEdit('weight')} id='weight' /></TableCell>
+                    <TableCell><input placeholder={exercise.sets} onChange={this.handleChangeInEdit('sets')} id='sets' /></TableCell>
+                    <TableCell><input placeholder={exercise.reps} onChange={this.handleChangeInEdit('reps')} id='reps' /></TableCell>
+                    {/* <TableCell><input placeholder={exercise.date} onChange={this.handleChangeInEdit('date')} /></TableCell> */}
                     <TableCell><button onClick={this.handleAddEdit}>Add</button></TableCell>
                   </TableRow>
                 )}
@@ -89,9 +104,9 @@ class Track extends Component {
           // make an alert if save workout is clicked - to show no workout to add
 
           <>
-            {/* <pre>
-            {JSON.stringify(this.props.reduxState.workout, null, 2)}
-            </pre> */}
+            <pre>
+            {JSON.stringify(this.props.reduxState.workout_id, null, 2)}
+            </pre>
             <Table>
               <TableHead>
                 <TableRow>
