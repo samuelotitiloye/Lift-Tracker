@@ -7,13 +7,20 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 
-
 class History extends Component {
+
+    componentDidMount (){
+        this.props.dispatch({type: 'GET_HISTORY'});
+        this.props.dispatch({type:'GET_WORKOUT_TABLE'})
+
+    }
     handleDeleteWorkout = (event) => {
         // this.props.history.push('/select')
         console.log('Deleting single workout from the database/ and our history page');
-        this.props.dispatch ({ type: 'DELETE_A_WORKOUT', payload:event.target.value})
+
+        this.props.dispatch({ type: 'DELETE_A_WORKOUT', payload: event.target.value })
     }
+
     render() {
         return (
             <div>
@@ -29,9 +36,9 @@ class History extends Component {
                                 <TableCell>Reps</TableCell>
                                 <TableCell>Date</TableCell>
                                 <TableCell>Date</TableCell>
-
                             </TableRow>
                         </TableHead>
+
                         <TableBody>
                             {this.props.reduxState.workout.getNewWorkout.length > 0 && this.props.reduxState.workout.getNewWorkout.map(exercise =>
                                 <TableRow>
@@ -41,12 +48,13 @@ class History extends Component {
                                     <TableCell>{exercise.sets}</TableCell>
                                     <TableCell>{exercise.reps}</TableCell>
                                     <TableCell>{exercise.date}</TableCell>
+                                    
                                     <TableCell><button value={exercise.id} onClick={this.handleDeleteWorkout}>Delete</button></TableCell>
                                 </TableRow>)}
                         </TableBody>
                     </Table>
                     <pre>
-                        {/* {JSON.stringify(this.props.reduxState, null, 2)} */}
+                        {JSON.stringify(this.props.reduxState, null, 2)}
                     </pre>
                 </>
 

@@ -6,9 +6,6 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-// import logo from './logo.svg';
-// import '../App/App.';
-
 class Select extends Component {
     state = {
         workoutObject: {
@@ -33,21 +30,21 @@ class Select extends Component {
     }
 
     handleclickToSaveWorkout = () => {
-        console.log('saving workout and exercise to the data base through a post route');
+        // console.log('saving workout and exercise to the data base through a post route');
         this.props.history.push('/track') //when clicked will push user to the track workout page
         // this.setState, this dispatched action will be in ran in our exerciseSaga component, with a fetch
         this.props.dispatch({ type: 'POST_WORKOUT_EXERCISE', payload: this.state.singleWorkout })
     }
 
     handleClickToAddExercise = () => {
-        console.log('add to exercise');
+        // console.log('add to exercise');
         this.setState({
             singleWorkout: [...this.state.singleWorkout, this.state.workoutObject]
         })
     }
 
     handleChange = (propertyName) => (event) => {
-        console.log('weights, sets and reps');
+        // console.log('weights, sets and reps');
         this.setState({
             workoutObject: {
                 ...this.state.workoutObject,
@@ -106,9 +103,9 @@ class Select extends Component {
                     <div>
                         {this.pageControl()}
                     </div>
-                    {/* <pre>
-                        {JSON.stringify(this.state, null, 2)}
-                    </pre> */}
+                    <pre>
+                        {JSON.stringify(this.state.singleWorkout, null, 2)}
+                    </pre>
                     <DropDownMenu
                         value={this.state.workoutObject.workout}
                         onChange={this.handleChangeWorkout}

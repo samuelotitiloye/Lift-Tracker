@@ -42,10 +42,31 @@ const getNewWorkout = (state = [], action) => {
 }
 
 
+const getNewWorkoutHistory = (state = [], action) => {
+    switch (action.type) {
+        case 'WORKOUT_EXERCISE_HISTORY':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+const getWorkoutTable = (state = [], action) => {
+    switch(action.type) {
+        case 'SET_WORKOUT_TABLE':
+        return action.payload;
+        default:
+            return state;
+    }
+}
+
+
 
 export default combineReducers({
     workout,
     update,
     getNewWorkout,
-    deleteWorkout
+    deleteWorkout,
+    getNewWorkoutHistory,
+    getWorkoutTable
 }) 

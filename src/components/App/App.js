@@ -25,6 +25,7 @@ import Welcome from '../Welcome/welcome';
 
 
 import './App.css';
+import { select } from 'redux-saga/effects';
 
 
 class App extends Component {
@@ -56,7 +57,7 @@ class App extends Component {
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
-            Even though it seems like they are different pages, the user is always on localhost:3000/home */}
+            Even though it seems like they are different pages, the user is always on localhost:3000/home */}  
             <ProtectedRoute
               exact
               path="/home"
@@ -74,11 +75,6 @@ class App extends Component {
             path="/track"
             component={Track}
             />
-             {/* <ProtectedRoute
-            exact 
-            path="/review"
-            component={Review}
-            /> */}
              <ProtectedRoute
             exact 
             path="/history"

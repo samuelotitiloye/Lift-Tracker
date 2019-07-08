@@ -5,6 +5,8 @@ import user from './userReducer';
 import workout from './workout/workout';
 import update from './workout/workout';
 import deleteWorkout from './workout/workout';
+import getNewWorkout from './workout/workout';
+import getNewWorkoutHistory from './workout/workout'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   workout, 
   update,
-  deleteWorkout
+  deleteWorkout,
+  getNewWorkout,
+  getNewWorkoutHistory
 });
 
 export default rootReducer;

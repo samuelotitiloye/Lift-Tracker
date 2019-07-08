@@ -6,7 +6,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET route : selects all exercises from the db and orders them by id
  */
-router.get('/workout_exercise', (req, res) => {
+
+router.get('/workout_exercise', rejectUnauthenticated, (req, res) => {
     console.log('getting workouts from the database');
     //make query request to the database
     const queryText = `SELECT "weight", "sets", "reps", "workout"."name", "workout"."date", "exercise"."name" as "exercise", "workout_exercise"."id"
@@ -30,6 +31,7 @@ router.get('/workout_exercise', (req, res) => {
 /**
  * POST &/ GET ROUTE route : grabs data entered from the select page when workout and exercises are selected
  */
+
 router.post('/workout', rejectUnauthenticated, async (req, res) => {
     const client = await pool.connect();
     try {
@@ -77,7 +79,10 @@ const sort = (array) => {
     return newArray;
 }
 
-// this is our update route for the track workout page when the we edit a workout
+/**
+ * PUT/UPDATE route : this is our update route for the track workout page when the we edit a workout
+ */
+
 router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
     console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!', req.body);
     const queryText = `UPDATE "workout_exercise" 
@@ -99,12 +104,30 @@ router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
         })
 })
 
-// RETURNING "workout", "exercise", "weight", "sets", "reps" 
+router.get('/workout', rejectUnauthenticated, (req, res) =>{
+    queryText = `SELECT * FROM "workout" ORDER BY "id";`
+    console.log('get just the workout');
+    pool.query(queryText)
+    .then(result => {
+        res.send(result.rows)
+    }).catch((error) => {
+        console.log('error making GET request', error);
+        res.sendStatus(500)
+    })
+})
+/**
+ * GET route to get 
+ */
 
 
-// this is our delete route for the workout history page
+/**
+ * DELETE route : this is our delete route for the workout history page
+ */
+
 router.delete('/workout_exercise/:id', rejectUnauthenticated, (req, res) => {
-    pool.query('DELETE FROM "workout_exercise" WHERE "workout_id"=$1', [req.params, req.user.id])
+    queryText = `DELETE FROM "workout_exercise" 
+    WHERE "id"= $1;`;
+    pool.query(queryText, [req.params.id])
         .then(result => {
             console.log(result);
             res.sendStatus(200)
