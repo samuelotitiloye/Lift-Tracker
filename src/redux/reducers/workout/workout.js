@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 
 
+
 // this will house all of our workout REDUCERS  and must be exported to the root/ main reducer
 // Used to store workout returned from the server
 const workout = (state = [], action) => {
@@ -23,15 +24,17 @@ const update = (state = [], action) => {
     }
 }
 
-const deleteWorkout = (state = [], action) => {
-    switch (action.type) {
-        case '_':
-            return action.payload;
-        default:
-            return state;
-    }
-}
+// this will be used to delete a workout from my history
+// const deleteWorkout = (state = [], action) => {
+//     switch (action.type) {
+//         case '_':
+//             return action.payload;
+//         default:
+//             return state;
+//     }
+// }
 
+// this will be used to retrieve all Workouts from the db
 const getNewWorkout = (state = [], action) => {
     switch (action.type) {
         case 'GET_WORKOUT':
@@ -41,7 +44,7 @@ const getNewWorkout = (state = [], action) => {
     }
 }
 
-
+//this is used to get all the new workout_exercise history
 const getNewWorkoutHistory = (state = [], action) => {
     switch (action.type) {
         case 'WORKOUT_EXERCISE_HISTORY':
@@ -51,12 +54,26 @@ const getNewWorkoutHistory = (state = [], action) => {
     }
 }
 
-const getWorkoutTable = (state = [], action) => {
+// this will be used to get DISTINCT date of workouts from the database
+const getWorkoutDate = (state = [], action) => {
     switch(action.type) {
         case 'SET_WORKOUT_TABLE':
         return action.payload;
+        case 'CLEAR_TABLE':
+            return [];
         default:
             return state;
+    }
+}
+
+//this is used to get data combining all tables to map through and 
+//display unique workouts/exercises/ and days/date there were performe
+const getEntireHistory = (state = [], action) => {
+    switch(action.type){
+        case 'SET_ENTIRE_WORKOUT_HISTORY':
+            return action.payload;
+            default:
+                return state;
     }
 }
 
@@ -66,7 +83,8 @@ export default combineReducers({
     workout,
     update,
     getNewWorkout,
-    deleteWorkout,
+    // deleteWorkout,
     getNewWorkoutHistory,
-    getWorkoutTable
+    getWorkoutDate,
+    getEntireHistory
 }) 

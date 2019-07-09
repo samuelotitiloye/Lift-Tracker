@@ -48,10 +48,10 @@ class Track extends Component {
   render() {
     return (
       <div>
-        {/* <pre>
+         {/* <pre>
           {JSON.stringify(this.props, null, 2)}
-        </pre>
-        <pre>
+        </pre> */}
+        {/* <pre>
           {JSON.stringify(this.state)}
         </pre> */}
         {/* {this.state.inEditMode ? */}
@@ -78,6 +78,7 @@ class Track extends Component {
             <button onClick={this.handleLogWorkout}>Log Workout</button>
           </>
       </div>
+      
       )
   }
 }

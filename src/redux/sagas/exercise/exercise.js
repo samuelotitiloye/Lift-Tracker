@@ -46,19 +46,31 @@ function* updateWorkoutSaga(action) {
 //this will handle our delete action when the delete button is clicked on the History page
 function* deleteWorkoutFromHistory(action) {
     // console.log('this will let the user delete a workout from the history page');
-    const deleteOneWorkout = axios.delete('api/template/workout_exercise', action.payload)
-    // yield put({ type: 'FETCH_A_WORKOUT' })
-    console.log('old logged data has been deleted from the database?', deleteOneWorkout)
-
+   try {
+    console.log(action.payload.id);
+    yield axios.delete(`api/template/workout_exercise/${action.payload.id}`)
+    yield put ({type:'CLEAR_TABLE'})
+    // yield put({ type: 'FETCH__WORKOUT' })
+    console.log('old logged data has been deleted from the database?')
+    yield put ({type:'GET_ENTIRE_HISTORY'})
     // stuck here making this delete route. don't know how to proceed.
-    //TODO: GET the delete working for client and server
+    //TODO: GET the delete working for client and server}
+   }catch(error) {
+       console.log('error making DELETE query', error);
+       
+   }
 }
 
-function* getWorkoutTable () {
+function* getWorkoutDate () {
     console.log('get just the workout table');
     const getJustWorkoutTable = yield axios.get('api/template/workout')
     yield put({type:'SET_WORKOUT_TABLE', payload:getJustWorkoutTable.data})
-    
+}
+
+function* getEntireWorkoutHistory () {
+    console.log('get the whole entire workout history from the database for me');
+    const getTheEntireWorkoutHistory = yield axios.get('api/template/workout_exercise/all')
+    yield put({type:'SET_ENTIRE_WORKOUT_HISTORY', payload: getTheEntireWorkoutHistory.data})
 }
 
 
@@ -69,8 +81,14 @@ function* exerciseSaga() {
     yield takeLatest('UPDATE_WORKOUT', updateWorkoutSaga);
     yield takeLatest('FETCH_EDITED_WORKOUT', getWorkoutsFromDatabase)
     yield takeLatest('DELETE_A_WORKOUT', deleteWorkoutFromHistory)
-    yield takeLatest('GET_HISTORY', getWorkoutHistory)
-    yield takeLatest('GET_WORKOUT_TABLE', getWorkoutTable)
+    //GET_HISTORY is dispatched from History.JS componentDidMount - Whatever is dispatched from the component
+    // becomes the action type in the Sagas, which will run it's own function - 
+    //and that function dispatch/action type is called in the Reducer
+    //GET_HISTORY saga runs, then calls the getWorkoutHistory generator function which 
+    //has an action/dispatch type of WORKOUT_EXERCISE_HISTORY which is then run in our reducer function getNewWorkoutHistory
+    yield takeLatest('GET_HISTORY', getWorkoutHistory) 
+    yield takeLatest('GET_WORKOUT_DATE', getWorkoutDate)
+    yield takeLatest('GET_ENTIRE_HISTORY', getEntireWorkoutHistory)
     // yield takeLatest('_WORKOUT', deleteWorkoutFromHistory)
 }
 export default exerciseSaga;

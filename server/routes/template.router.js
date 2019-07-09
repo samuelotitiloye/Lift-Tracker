@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
- * GET route : selects all exercises from the db and orders them by id
+ * GET route : selects all workout_exercises from the db and orders them by id
  */
 
 router.get('/workout_exercise', rejectUnauthenticated, (req, res) => {
@@ -82,7 +82,6 @@ const sort = (array) => {
 /**
  * PUT/UPDATE route : this is our update route for the track workout page when the we edit a workout
  */
-
 router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
     console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!', req.body);
     const queryText = `UPDATE "workout_exercise" 
@@ -104,26 +103,48 @@ router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
         })
 })
 
+/**
+ * GET route to get all workouts dates from the database
+ */
 router.get('/workout', rejectUnauthenticated, (req, res) =>{
-    queryText = `SELECT * FROM "workout" ORDER BY "id";`
-    console.log('get just the workout');
+    const queryText = `SELECT DISTINCT "date"
+    FROM "workout_exercise"
+    ORDER BY "date";`
+    console.log('get just the workout dates');
     pool.query(queryText)
     .then(result => {
         res.send(result.rows)
     }).catch((error) => {
-        console.log('error making GET request', error);
+        console.log('error making GET DISTINCT DATE request', error);
         res.sendStatus(500)
     })
 })
-/**
- * GET route to get 
- */
-
 
 /**
- * DELETE route : this is our delete route for the workout history page
+ * GET route to get ALL WORKOUT HISTORY
  */
+router.get('/workout_exercise/all', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT "workout_exercise"."date","workout"."name", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" FROM "workout_exercise" 
+    JOIN "workout" 
+    ON "workout_id"="workout"."id"
+    JOIN "exercise"
+    ON "exercise_id"="exercise"."id" 
+    ORDER BY "workout_exercise"."date";`;
+    console.log('getting the whole history from the database');
+    pool.query(queryText)
+    .then(result => { 
+        // console.log(result.rows);
+        res.send(result.rows)
+    }).catch((error) => {
+        console.log('error making SELECT ALL HISTORY query', error);
+        res.sendStatus(500)
+    })
+})
 
+
+/**
+ * DELETE route : this is the delete route for the workout history page
+ */
 router.delete('/workout_exercise/:id', rejectUnauthenticated, (req, res) => {
     queryText = `DELETE FROM "workout_exercise" 
     WHERE "id"= $1;`;
