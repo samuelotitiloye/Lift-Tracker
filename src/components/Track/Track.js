@@ -74,7 +74,6 @@ class Track extends Component {
                 )}
               </TableBody>
             </Table>
-            {/*  */}
             <button onClick={this.handleLogWorkout}>Log Workout</button>
           </>
       </div>

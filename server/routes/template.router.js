@@ -124,7 +124,8 @@ router.get('/workout', rejectUnauthenticated, (req, res) =>{
  * GET route to get ALL WORKOUT HISTORY
  */
 router.get('/workout_exercise/all', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT "workout_exercise"."date","workout"."name", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" FROM "workout_exercise" 
+    const queryText = `SELECT "workout_exercise"."date", "workout"."name" AS "workout", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" 
+    FROM "workout_exercise" 
     JOIN "workout" 
     ON "workout_id"="workout"."id"
     JOIN "exercise"

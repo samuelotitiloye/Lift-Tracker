@@ -74,27 +74,5 @@ class DayItem extends Component {
 const mapReduxStateToProps = reduxState => ({ reduxState })
 export default connect(mapReduxStateToProps)(DayItem)
 
-{/* // this.props.reduxState.workout.getWorkoutDate.map */ }
 
-// <TableRow>
-// <TableCell>Workout</TableCell>
-// <TableCell>Exercise</TableCell>
-// <TableCell>Weight(lb)</TableCell>
-// <TableCell>Sets</TableCell>
-// <TableCell>Reps</TableCell>
-// <TableCell>Date</TableCell>
-// <TableCell>Add</TableCell>
-// </TableRow>
-
-{/* <TableHead>
-<TableRow>
-    <TableCell>Workout</TableCell>
-    <TableCell>Exercise</TableCell>
-    <TableCell>Weight(lb)</TableCell>
-    <TableCell>Sets</TableCell>
-    <TableCell>Reps</TableCell>
-    <TableCell>Date</TableCell>
-    <TableCell>Delete</TableCell>
-</TableRow>
-</TableHead> */}
 
