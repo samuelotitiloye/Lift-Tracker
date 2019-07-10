@@ -103,9 +103,9 @@ class Select extends Component {
                     <div>
                         {this.pageControl()}
                     </div>
-                    <pre>
+                    {/* <pre>
                         {JSON.stringify(this.state.singleWorkout, null, 2)}
-                    </pre>
+                    </pre> */}
                     <DropDownMenu
                         value={this.state.workoutObject.workout}
                         onChange={this.handleChangeWorkout}
@@ -154,8 +154,8 @@ class Select extends Component {
                     <input onChange={this.handleChange('sets')} placeholder="sets" />
                     <input onChange={this.handleChange('reps')} placeholder="reps" />
                     <br /><br /><br />
-                    <button onClick={this.handleClickToAddExercise}>Add Exercise</button>
-                    <button onClick={this.handleclickToSaveWorkout}>Save Workout</button>
+                    <button onClick={this.handleClickToAddExercise} id='addExercise'>Add Exercise</button>
+                    <button onClick={this.handleclickToSaveWorkout} id=''>Save Workout</button>
                 </MuiThemeProvider>
             </div>
         );
@@ -166,7 +166,6 @@ class Select extends Component {
 
 const mapReduxStateToProps = reduxState => ({ reduxState })
 export default connect(mapReduxStateToProps)(Select)
-
 
 //grab the data from the dropdown list when the save workout button is clicked
 //when save workout button is clicked push to the track workout page
