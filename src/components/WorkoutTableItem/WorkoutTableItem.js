@@ -12,7 +12,7 @@ class workoutTableItem extends Component {
         workout: {
             workout: '',
             exercise: '',
-            weight: this.props.reduxState.workout.workout,
+            weight: '',
             sets: '',
             reps: '',
             id: ''
@@ -34,23 +34,27 @@ class workoutTableItem extends Component {
     }
 
     handleSaveEdit = () => {
-        console.log('we are going to add our newly edited workout/exercise');
-        this.setState({
-            workout: {
-                ...this.state.workout,
-                id: this.props.reduxState.workout.workout[0].id
-            }
-        }, () => {
-            this.props.dispatch({
-                type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js componenet)
-                payload: this.state.workout,
-            })
-        })
+        console.log('we are going to add our newly edited workout/exercise', this.state);
+        // this.setState({
+        //     workout: {
+        //         ...this.state.workout,
+        //         id: this.props.reduxState.workout.workout[0].id
+        //     }
+        // }, () => {
+        //     this.props.dispatch({
+        //         type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js component)
+        //         payload: this.state.workout,
+        //     })
+        // })
     }
+//save  it on local state on change
+//onsave update database
+//then reget your database
+
 
 
     handleClickToEdit = () => {
-        console.log('i can update my workouts!!!!!!!!!!!!!!!!!!!');
+        console.log('i can update my workouts!!!!!!!!!!!!!!!!!!!')
         this.setState({ inEditMode: !this.state.inEditMode })
         // this.props.dispatch({ type: 'UPDATE_WORKOUT', payload: this.state }) //this action will be called in 
     }
@@ -58,13 +62,17 @@ class workoutTableItem extends Component {
     render() {
         return (
             <>
+            <pre>
+                {JSON.stringify(this.state.workout)}
+            </pre>
+                
                 <TableRow>
                     <TableCell>
                         {this.state.inEditMode ?
                             <MuiThemeProvider>
                                 <DropDownMenu
                                     value={this.state.workout.workout}
-                                    onChange={this.handleChangeNewWorkout}
+                                    onChange={this.handleChangeInEdit('workout')}
                                 >
                                     <MenuItem value={1} primaryText="Chest" />
                                     <MenuItem value={2} primaryText="Glutes" />
@@ -83,22 +91,21 @@ class workoutTableItem extends Component {
                         {this.state.inEditMode ?
                             <MuiThemeProvider>
                                 <DropDownMenu
-                                    value={this.props.exercise.name}
-                                    onChange={this.handleChangeWorkout}
+                                    value={this.state.workout.exercise}
+                                    onChange={this.handleChangeInEdit('exercise')}
                                 >
                                     <MenuItem value={1} primaryText="Bench Press" />
                                     <MenuItem value={2} primaryText="Hip Thrust" />
                                     <MenuItem value={3} primaryText="Over Head Press" />
                                     <MenuItem value={4} primaryText="Squats" />
                                     <MenuItem value={5} primaryText="Deadlifts" />
-
                                 </DropDownMenu>
                             </MuiThemeProvider>
                             :
                             <>
                                 {this.props.exercise.exercise_name}
                             </>
-                        };
+                        }
                         </TableCell>
                     <TableCell>
                         {this.state.inEditMode ?
@@ -132,15 +139,15 @@ class workoutTableItem extends Component {
 
                     <TableCell>
                         {this.state.inEditMode ?
-                            <button onClick={this.handleAddEdit}>Add</button>
+                            <button onClick={this.handleSaveEdit}>Add</button>
                             :
                             <button onClick={this.handleClickToEdit}>Edit Workout</button>
                         }
                     </TableCell>
                 </TableRow>
-                {/* <pre>
-                    {JSON.stringify(this.state, null, 2)}
-                </pre> */}
+                <pre>
+                    {JSON.stringify(this.props.reduxState.workout, null, 2)}
+                </pre>
             </>
         );
     }
