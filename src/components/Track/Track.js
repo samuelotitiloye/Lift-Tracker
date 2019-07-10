@@ -48,37 +48,37 @@ class Track extends Component {
   render() {
     return (
       <div>
-         {/* <pre>
+        {/* <pre>
           {JSON.stringify(this.props, null, 2)}
         </pre> */}
         {/* <pre>
           {JSON.stringify(this.state)}
         </pre> */}
         {/* {this.state.inEditMode ? */}
-          <>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Workout</TableCell>
-                  <TableCell>Exercise</TableCell>
-                  <TableCell>Weight(lb)</TableCell>
-                  <TableCell>Sets</TableCell>
-                  <TableCell>Reps</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Add</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
-                  <WorkoutTableItem key={exercise.id} exercise={exercise} />
-                )}
-              </TableBody>
-            </Table>
-            <button onClick={this.handleLogWorkout}>Log Workout</button>
-          </>
+        <>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Workout</TableCell>
+                <TableCell>Exercise</TableCell>
+                <TableCell>Weight(lb)</TableCell>
+                <TableCell>Sets</TableCell>
+                <TableCell>Reps</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Add</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
+                <WorkoutTableItem key={exercise.id} exercise={exercise} />
+              )}
+            </TableBody>
+          </Table>
+          <button onClick={this.handleLogWorkout}>Log Workout</button>
+        </>
       </div>
-      
-      )
+
+    )
   }
 }
 

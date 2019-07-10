@@ -23,25 +23,25 @@ class History extends Component {
             <div>
 
                 <pre>
-                {/* {JSON.stringify(this.props.reduxState.workout.getWorkoutDate, null, 2)} */}
+                    {/* {JSON.stringify(this.props.reduxState.workout.getWorkoutDate, null, 2)} */}
                 </pre>
-                {this.props.reduxState.workout.getWorkoutDate.length > 0 && this.props.reduxState.workout.getWorkoutDate.map(day => 
-                   <>
-                    <DayItem day={day} key={day.date}/>
-                    <br />
+                {this.props.reduxState.workout.getWorkoutDate.length > 0 && this.props.reduxState.workout.getWorkoutDate.map(day =>
+                    <>
+                        <DayItem day={day} key={day.date} />
+                        <br />
                     </>
-                 )}                             
+                )}
             </div>
-            )
-        }
+        )
     }
-    
-const mapReduxStateToProps = reduxState => ({reduxState})
+}
+
+const mapReduxStateToProps = reduxState => ({ reduxState })
 export default connect(mapReduxStateToProps)(History);
-                
-                
-                //TODO: authentication and authorization for new users
-                //comment out JSON.stringify(s)
-                //
-                
-                
+
+
+//TODO: authentication and authorization for new users
+//comment out JSON.stringify(s)
+//
+
+

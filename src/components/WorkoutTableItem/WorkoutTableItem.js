@@ -25,28 +25,28 @@ class workoutTableItem extends Component {
         //needed to give each input field an id in editMode in order to grab 
         //them once and use one function to target their new value
         this.setState({
-          ...this.state,
-          workout: {
-            ...this.state.workout,
-            [propertyName]: event.target.value,
-          }
+            ...this.state,
+            workout: {
+                ...this.state.workout,
+                [propertyName]: event.target.value,
+            }
         });
-      }
+    }
 
-      handleSaveEdit = () => {
+    handleSaveEdit = () => {
         console.log('we are going to add our newly edited workout/exercise');
         this.setState({
-          workout: {
-            ...this.state.workout,
-            id: this.props.reduxState.workout.workout[0].id
-          }
+            workout: {
+                ...this.state.workout,
+                id: this.props.reduxState.workout.workout[0].id
+            }
         }, () => {
-          this.props.dispatch({
-            type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js componenet)
-            payload: this.state.workout,
-          })
+            this.props.dispatch({
+                type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js componenet)
+                payload: this.state.workout,
+            })
         })
-      }
+    }
 
 
     handleClickToEdit = () => {
@@ -139,7 +139,7 @@ class workoutTableItem extends Component {
                     </TableCell>
                 </TableRow>
                 <pre>
-                    {JSON.stringify (this.state, null, 2)}
+                    {JSON.stringify(this.state, null, 2)}
                 </pre>
             </>
         );

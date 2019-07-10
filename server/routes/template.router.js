@@ -93,7 +93,7 @@ router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
     WHERE "workout_exercise"."id"=$6
     RETURNING "workout_exercise"."id";`;
     const updateWorkout = [req.body.workout, req.body.exercise, req.body.weight, req.body.sets, req.body.reps, req.body.id];
-    console.log('update workout',updateWorkout)
+    console.log('update workout', updateWorkout)
     pool.query(queryText, updateWorkout)
         .then(result => {
             res.send(result.rows)
@@ -106,18 +106,18 @@ router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
 /**
  * GET route to get all workouts dates from the database
  */
-router.get('/workout', rejectUnauthenticated, (req, res) =>{
+router.get('/workout', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT DISTINCT "date"
     FROM "workout_exercise"
     ORDER BY "date";`
     console.log('get just the workout dates');
     pool.query(queryText)
-    .then(result => {
-        res.send(result.rows)
-    }).catch((error) => {
-        console.log('error making GET DISTINCT DATE request', error);
-        res.sendStatus(500)
-    })
+        .then(result => {
+            res.send(result.rows)
+        }).catch((error) => {
+            console.log('error making GET DISTINCT DATE request', error);
+            res.sendStatus(500)
+        })
 })
 
 /**
@@ -133,13 +133,13 @@ router.get('/workout_exercise/all', rejectUnauthenticated, (req, res) => {
     ORDER BY "workout_exercise"."date";`;
     console.log('getting the whole history from the database');
     pool.query(queryText)
-    .then(result => { 
-        // console.log(result.rows);
-        res.send(result.rows)
-    }).catch((error) => {
-        console.log('error making SELECT ALL HISTORY query', error);
-        res.sendStatus(500)
-    })
+        .then(result => {
+            // console.log(result.rows);
+            res.send(result.rows)
+        }).catch((error) => {
+            console.log('error making SELECT ALL HISTORY query', error);
+            res.sendStatus(500)
+        })
 })
 
 
