@@ -138,9 +138,9 @@ class workoutTableItem extends Component {
                         }
                     </TableCell>
                 </TableRow>
-                <pre>
+                {/* <pre>
                     {JSON.stringify(this.state, null, 2)}
-                </pre>
+                </pre> */}
             </>
         );
     }

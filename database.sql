@@ -3,52 +3,36 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-
-
 --this table will create users from the register/login page
+
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL
 );
-   
-  
+
 -- this table will create workouts per user...a workout will contain various exercises
   CREATE TABLE "workout" (
   "id" SERIAL PRIMARY KEY,
   "user_id" INT,
   "name" VARCHAR,
   "date" DATE NOT NULL DEFAULT CURRENT_DATE);
-  
-  DROP TABLE "workout";
-  
 
-  
-INSERT INTO "workout" ("id", "user_id", "name", "date")
-VALUES ('1', '1', 'chest day', '6-30-2019');
-
-  
 --- this table will create different physical activities by the user
 CREATE TABLE "exercise" (
   "id" SERIAL PRIMARY KEY, 
   "name" varchar,
   "description" varchar);
-  
-  
 
-INSERT INTO "workout" ("user_id", "name", "date")
-VALUES ('1', 'Chest', '7-1-2019'),
-('1', 'Glutes', '7-1-2019'),
-('1', 'Shoulders', '7-1-2019'),
-('1', 'Legs', '7-1-2019'),
-('1', 'Back', '7-1-2019');
+-- this table will create different workout 
+INSERT INTO "workout" ("user_id", "name")
+VALUES ('1', 'Chest'),
+('1', 'Glutes'),
+('1', 'Shoulders'),
+('1', 'Legs'),
+('1', 'Back');
 
-
+-- this query will populate/insert into the exercise table with different exercises
 INSERT INTO "exercise" ("name", "description")
 VALUES ('Bench Press', 'Lie back on a flat bench. Using a medium width grip (a grip that creates a 90-degree angle in the middle of the movement between the forearms and the upper arms), lift the bar from the rack and hold it straight over you with your arms locked. From the starting position, breathe in and begin coming down slowly until the bar touches your middle chest.
 After a brief pause, push the bar back to the starting position as you breathe out. Focus on pushing the bar using your chest muscles. Lock your arms and squeeze your chest in the contracted position at the top of the motion, hold for a second and then start coming down slowly again. Tip: Ideally, lowering the weight should take about twice as long as raising it. Repeat the movement for the prescribed amount of repetitions.'),
@@ -58,7 +42,7 @@ Press the bar over your head, until it’s balanced over your shoulders and mid-
 ('Squats', 'Begin with the barbell supported on top of the traps. The chest should be up and the head facing forward. Adopt a hip-width stance with the feet turned out as needed. Descend by flexing the knees, refraining from moving the hips back as much as possible. This requires that the knees travel forward. Ensure that they stay align with the feet. The goal is to keep the torso as upright as possible. Continue all the way down, keeping the weight on the front of the heel. At the moment the upper legs contact the lower legs reverse the motion, driving the weight upward.'),
 ('Deadlifts', 'Approach the bar so that it is centered over your feet. Your feet should be about hip-width apart. Bend at the hip to grip the bar at shoulder-width allowing your shoulder blades to protract. Typically, you would use an alternating grip. With your feet and your grip set, take a big breath and then lower your hips and flex the knees until your shins contact the bar. Look forward with your head. Keep your chest up and your back arched, and begin driving through the heels to move the weight upward. After the bar passes the knees aggressively pull the bar back, pulling your shoulder blades together as you drive your hips forward into the bar. Lower the bar by bending at the hips and guiding it to the floor');
 
---- 
+--- this will be a junction table that joins the worout table and the exercise table. Join queries will be made here
  CREATE TABLE "workout_exercise" (
   "id" SERIAL PRIMARY KEY, 
   "workout_id" INT references "workout",
@@ -68,13 +52,6 @@ Press the bar over your head, until it’s balanced over your shoulders and mid-
   "reps" int
 );
 
-DROP TABLE "workout_exercise";
-
---
-SELECT * FROM "workout",
-JOIN "exercise", 
-ON "workout"_"id", 
-WHERE "user"_"id" = '1';
 
 --
 SELECT * FROM "workout" ORDER BY "id";
@@ -111,7 +88,7 @@ JOIN "exercise"
 ON "exercise_id"="exercise"."id"
 WHERE "user_id" = 1;
 
---
+-- query to get 
 SELECT "weight", "sets", "reps", "workout", "exercise" 
 FROM "workout_exercise" 
 JOIN "workout" 
@@ -120,6 +97,7 @@ JOIN "exercise"
 ON "exercise_id"="exercise"."id" 
 WHERE "workout_exercise"."id"=1;
 
+--
 SELECT "weight", "sets", "reps", "workout", "exercise" 
 FROM "workout_exercise" 
 JOIN "workout" 
@@ -136,31 +114,22 @@ JOIN "exercise"
 ON "exercise_id"="exercise"."id" 
 ORDER BY "workout_exercise"."date";
 
+--query to get distinct date to map through
 SELECT DISTINCT "date"
 FROM "workout_exercise"
 ORDER BY "date";
 
 WHERE "workout_exercise"."id"=200;
     
-    
+-- query to delete an item from the history table 
 DELETE FROM "workout_exercise" 
 WHERE "id"= 153;
 
 SELECT * FROM "workout_exercise";
 
+--query to get dynamic dates from the database to map through
 SELECT * FROM "workout_exercise"
 JOIN "workout"
 ON "workout_id"
 WHERE "workout_id"="id"
 ORDER BY "date";
-
-SELECT DISTINCT "date"
-FROM "workout_exercise"
-ORDER BY "date";
-
-
----
-
---SELECT DATE(`date_posted`) AS dateonly 
---FROM   table 
---GROUP  BY DATE(`date_posted`)
