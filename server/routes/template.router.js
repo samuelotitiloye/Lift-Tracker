@@ -33,6 +33,7 @@ router.get('/workout_exercise', rejectUnauthenticated, (req, res) => {
  */
 
 router.post('/workout', rejectUnauthenticated, async (req, res) => {
+    console.log(req.body);
     const client = await pool.connect();
     try {
         client.query('BEGIN');
@@ -60,7 +61,10 @@ router.post('/workout', rejectUnauthenticated, async (req, res) => {
         const sortResult = sort(promiseResult);
         console.log('sort result', sortResult)
         client.query('COMMIT');
-        res.send(sortResult);
+        // instead of res.sending the results of adding stuff to database.
+        // we want to res.send a status of 200, saying that everything went fine
+        // res.send(sortResult);
+        res.sendStatus(200);
     } catch (error) {
         client.query('ROLLBACK');
         console.log('error making INSERT query', error);
@@ -116,6 +120,28 @@ router.get('/workout', rejectUnauthenticated, (req, res) => {
             res.send(result.rows)
         }).catch((error) => {
             console.log('error making GET DISTINCT DATE request', error);
+            res.sendStatus(500)
+        })
+})
+
+/**
+ * GET route to get newly posted data for the update/edit page
+ */
+
+router.get('/workout_exercise/current', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT "workout_exercise"."date","workout"."name" AS "workout.name", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" 
+    FROM "workout_exercise"
+    JOIN "workout" 
+    ON "workout_id"="workout"."id"
+    JOIN "exercise"
+    ON "exercise_id"="exercise"."id" 
+    WHERE "workout_exercise"."date"= CURRENT_DATE;`
+    console.log('get just the workout dates');
+    pool.query(queryText)
+        .then(result => {
+            res.send(result.rows)
+        }).catch((error) => {
+            console.log('error making SELECT current date/post request', error);
             res.sendStatus(500)
         })
 })

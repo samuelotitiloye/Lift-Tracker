@@ -8,6 +8,7 @@ import { combineReducers } from 'redux';
 const workout = (state = [], action) => {
     switch (action.type) {
         case 'SET_WORKOUT':
+            console.log('inside set_workout', action.payload);
             return action.payload;
         default:
             return state;
@@ -24,15 +25,6 @@ const update = (state = [], action) => {
     }
 }
 
-// this will be used to delete a workout from my history
-// const deleteWorkout = (state = [], action) => {
-//     switch (action.type) {
-//         case '_':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// }
 
 // this will be used to retrieve all Workouts from the db
 const getNewWorkout = (state = [], action) => {

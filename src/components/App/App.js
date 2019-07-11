@@ -22,10 +22,8 @@ import Track from '../Track/Track';
 // import Review from '../Welcome/welcome';
 import History from '../History/History';
 import Welcome from '../Welcome/welcome';
-
-
 import './App.css';
-import { select } from 'redux-saga/effects';
+// import { select } from 'redux-saga/effects';
 
 
 class App extends Component {

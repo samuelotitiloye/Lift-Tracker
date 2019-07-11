@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -18,17 +17,18 @@ class Select extends Component {
         singleWorkout: []
     }
 
-
+    // this targets the changes that ocuur in our workout drop down list
     handleChangeWorkout = (event, index, value) => {
         // set workout to the value/workout selected
         this.setState({ workoutObject: { ...this.state.workoutObject, workout: value } });
     }
-
+    // this targets the changes that ocuur in our exercise drop down list
     handleChangeExercise = (event, index, value) => {
         // set workout to the value/workout selected
         this.setState({ workoutObject: { ...this.state.workoutObject, exercise: value } });
     }
 
+    //this will target our save workout button
     handleclickToSaveWorkout = () => {
         // console.log('saving workout and exercise to the data base through a post route');
         this.props.history.push('/track') //when clicked will push user to the track workout page
@@ -36,6 +36,7 @@ class Select extends Component {
         this.props.dispatch({ type: 'POST_WORKOUT_EXERCISE', payload: this.state.singleWorkout })
     }
 
+    //this will target our button to be able to add exercises to our singleWorkout object
     handleClickToAddExercise = () => {
         // console.log('add to exercise');
         this.setState({
@@ -43,6 +44,7 @@ class Select extends Component {
         })
     }
 
+    //this will target the changes that occur in our input fields 
     handleChange = (propertyName) => (event) => {
         // console.log('weights, sets and reps');
         this.setState({
@@ -85,6 +87,7 @@ class Select extends Component {
     render() {
         return (
             <div>
+                <>
                 <MuiThemeProvider>
                     <AppBar
                         title="WORKOUT"
@@ -157,6 +160,7 @@ class Select extends Component {
                     <button onClick={this.handleClickToAddExercise} id='addExercise'>Add Exercise</button>
                     <button onClick={this.handleclickToSaveWorkout} id=''>Save Workout</button>
                 </MuiThemeProvider>
+                </>
             </div>
         );
     }

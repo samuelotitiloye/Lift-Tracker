@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 class HistoryItem extends Component {
     componentDidMount() {
+        
     }
 
 
@@ -26,16 +27,3 @@ class HistoryItem extends Component {
 const mapReduxStateToProps = reduxState => ({ reduxState })
 export default connect(mapReduxStateToProps)(HistoryItem)
 
-
-
-//{this.props.reduxState.workout.getEntireWorkoutHistory.map(exercise => {
-//     if(exercise.date === this.props.day.date){
-//         // /the data that i want to display>
-//      }
-//  } )}
-
-//this.props.reduxState.getEntireWorkoutHistory.map(exercise => {
-    //if(exercise.date === this.props.day.date) {
-       // <{workout}, {exercise}, {weight}, {sets}, {reps}, {date}
-    //}
-//})

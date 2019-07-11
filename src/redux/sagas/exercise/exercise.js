@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga/effects';
+import { func } from 'prop-types';
 
 //this will hold all of our SAGAS and must be exported to the rootSaga
 
@@ -9,10 +10,12 @@ function* postWorkoutToExercise(action) {
     try {
         console.log(action.payload);
         // this route needs to match the post route in our server (template.router)
-        const response = yield axios.post('/api/template/workout', action.payload)
+        yield axios.post('/api/template/workout', action.payload)
+        const recentWorkout = yield axios.get('api/template/workout_exercise/current')
+        console.log('this is the log after the post', recentWorkout.data);
         //this runs becauese of our action from the handleClickToSaveWorkout from the select page.
         // SET_WORKOUT is from workout.js - it is from workout Reducer it will set the workouts that have been posted
-        yield put({ type: 'SET_WORKOUT', payload: response.data })
+        yield put({ type: 'SET_WORKOUT', payload:recentWorkout.data})
         // console.log('response from axios', response.data);
         // console.log('posted new workouts to the database');
     } catch (error) {
@@ -20,11 +23,13 @@ function* postWorkoutToExercise(action) {
     }
 }
 
+
 function* getWorkoutsFromDatabase(action) {
     // const response = yield axios.get(`api/template/workout_exercise?id=${action.payload[0].id}`)
     try {
         const response = yield axios.get(`api/template/workout_exercise`)
-        yield put({ type: 'GET_WORKOUT', payload: response.data })
+        
+        // yield put({ type: 'GET_WORKOUT', payload: response.data })
         // console.log('response for the get route after editing workout', response.data);
         // yield put({ type: '' })
     } catch (error) {
@@ -68,6 +73,7 @@ function* deleteWorkoutFromHistory(action) {
         // yield put({ type: 'FETCH__WORKOUT' })
         console.log('old logged data has been deleted from the database?')
         yield put({ type: 'GET_ENTIRE_HISTORY' })
+        yield put({type:'GET_HISTORY'})
         // stuck here making this delete route. don't know how to proceed.
         //TODO: GET the delete working for client and server}
     } catch (error) {

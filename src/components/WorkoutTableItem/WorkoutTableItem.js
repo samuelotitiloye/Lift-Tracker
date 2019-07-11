@@ -10,14 +10,51 @@ class workoutTableItem extends Component {
     state = {
         inEditMode: false,
         workout: {
-            workout: '',
-            exercise: '',
+            workout_id: '',
+            exercise_id: '',
             weight: '',
             sets: '',
             reps: '',
             id: ''
         }
     }
+
+
+    componentDidMount() {
+        this.setState({
+            workout_id: this.props.exercise.exercise_name,
+            exercise_id: this.props.exercise.name,
+            weight: this.props.exercise.weight,
+            sets: this.props.exercise.sets,
+            reps: this.props.exercise.reps,
+        })
+    }
+
+    handleChangeWorkout = (event, index, value) => {
+        // set workout to the value/workout selected
+        // console.log('logging the value of this workout', this.state);
+        this.setState({
+            ...this.state,
+            workout: {
+                ...this.state.workout,
+                workout_id: value,
+            }
+        });
+    }
+
+    handleChangeExercise = (event, index, value) => {
+        // console.log('logging the value of this exercise', value);
+        // set workout to the value/workout selected
+        this.setState({
+            ...this.state,
+            workout: {
+                ...this.state.workout,
+                exercise_id: value,
+            }
+        });
+    }
+
+
 
     handleChangeInEdit = (propertyName) => (event) => {
         //we need to spread state , and event in order to keep the original state then 
@@ -47,10 +84,10 @@ class workoutTableItem extends Component {
         //     })
         // })
     }
-//save  it on local state on change
-//onsave update database
-//then reget your database
 
+    //save to local state on change
+    //onsave update database
+    //then reget your database from the sagas?
 
 
     handleClickToEdit = () => {
@@ -62,17 +99,17 @@ class workoutTableItem extends Component {
     render() {
         return (
             <>
-            <pre>
-                {JSON.stringify(this.state.workout)}
-            </pre>
-                
+                <pre>
+                    {JSON.stringify(this.props.exercise.exercise, null, 2)}
+                </pre>
+
                 <TableRow>
                     <TableCell>
                         {this.state.inEditMode ?
                             <MuiThemeProvider>
                                 <DropDownMenu
                                     value={this.state.workout.workout}
-                                    onChange={this.handleChangeInEdit('workout')}
+                                    onChange={this.handleChangeWorkout}
                                 >
                                     <MenuItem value={1} primaryText="Chest" />
                                     <MenuItem value={2} primaryText="Glutes" />
@@ -92,7 +129,7 @@ class workoutTableItem extends Component {
                             <MuiThemeProvider>
                                 <DropDownMenu
                                     value={this.state.workout.exercise}
-                                    onChange={this.handleChangeInEdit('exercise')}
+                                    onChange={this.handleChangeExercise}
                                 >
                                     <MenuItem value={1} primaryText="Bench Press" />
                                     <MenuItem value={2} primaryText="Hip Thrust" />
@@ -106,7 +143,7 @@ class workoutTableItem extends Component {
                                 {this.props.exercise.exercise_name}
                             </>
                         }
-                        </TableCell>
+                    </TableCell>
                     <TableCell>
                         {this.state.inEditMode ?
                             <input placeholder={this.props.exercise.weight} onChange={this.handleChangeInEdit('weight')} id='weight' />
@@ -145,9 +182,9 @@ class workoutTableItem extends Component {
                         }
                     </TableCell>
                 </TableRow>
-                <pre>
+                {/* <pre>
                     {JSON.stringify(this.props.reduxState.workout, null, 2)}
-                </pre>
+                </pre> */}
             </>
         );
     }
@@ -155,6 +192,7 @@ class workoutTableItem extends Component {
 
 const mapReduxStateToProps = reduxState => ({ reduxState })
 export default connect(mapReduxStateToProps)(workoutTableItem)
+
 
 
 
