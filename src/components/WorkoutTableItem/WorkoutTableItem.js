@@ -15,7 +15,6 @@ class workoutTableItem extends Component {
             weight: '',
             sets: '',
             reps: '',
-            id: ''
         }
     }
 
@@ -71,18 +70,23 @@ class workoutTableItem extends Component {
     }
 
     handleSaveEdit = () => {
-        console.log('we are going to add our newly edited workout/exercise', this.state);
-        // this.setState({
-        //     workout: {
-        //         ...this.state.workout,
-        //         id: this.props.reduxState.workout.workout[0].id
-        //     }
-        // }, () => {
-        //     this.props.dispatch({
-        //         type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js component)
-        //         payload: this.state.workout,
-        //     })
-        // })
+        const updatedObject = {
+            ...this.state.workout,
+            id: this.props.exercise.id,
+        }
+        console.log('we are going to add our newly edited workout/exercise', updatedObject);
+        this.setState({
+            workout: {
+                ...this.state.workout,
+                id: this.props.reduxState.workout.workout[0].id
+            }
+        }, () => {
+            this.props.dispatch({
+                type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js component)
+                payload: updatedObject,
+                // payload: this.state.workout,
+            })
+        })
     }
 
     //save to local state on change
@@ -120,6 +124,7 @@ class workoutTableItem extends Component {
                             </MuiThemeProvider>
                             :
                             <>
+                                {this.props.exercise.id}
                                 {this.props.exercise.name}
                             </>
                         }
@@ -172,7 +177,7 @@ class workoutTableItem extends Component {
                         }
                     </TableCell>
 
-                    <TableCell><input placeholder={this.props.exercise.date} readOnly /></TableCell>
+                    <TableCell><input placeholder={(this.props.exercise.date)} readOnly /></TableCell>
 
                     <TableCell>
                         {this.state.inEditMode ?

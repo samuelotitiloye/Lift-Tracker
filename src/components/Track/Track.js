@@ -70,7 +70,7 @@ class Track extends Component {
             </TableHead>
             <TableBody>
               {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
-                <WorkoutTableItem key={exercise.id} exercise={exercise} />
+                <WorkoutTableItem key={exercise.id} exercise={exercise}  id='trackTable'/>
               )}
             </TableBody>
           </Table>

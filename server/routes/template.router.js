@@ -125,17 +125,17 @@ router.get('/workout', rejectUnauthenticated, (req, res) => {
 })
 
 /**
- * GET route to get newly posted data for the update/edit page
+ * GET route to get newly/recent posted data for the update/edit page
  */
 
 router.get('/workout_exercise/current', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT "workout_exercise"."date","workout"."name" AS "workout.name", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" 
+    const queryText = `SELECT "workout_exercise"."date", "workout"."name" AS "workout.name", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" 
     FROM "workout_exercise"
     JOIN "workout" 
     ON "workout_id"="workout"."id"
     JOIN "exercise"
     ON "exercise_id"="exercise"."id" 
-    WHERE "workout_exercise"."date"= CURRENT_DATE;`
+    WHERE "workout_exercise"."date" = CURRENT_DATE;`
     console.log('get just the workout dates');
     pool.query(queryText)
         .then(result => {

@@ -32,13 +32,13 @@ class DayItem extends Component {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Workout</TableCell>
-                            <TableCell>Exercise</TableCell>
-                            <TableCell>Weight(lb)</TableCell>
-                            <TableCell>Sets</TableCell>
-                            <TableCell>Reps</TableCell>
-                            <TableCell>Delete</TableCell>
+                            <TableCell id='historyHeader'>Date</TableCell>
+                            <TableCell id='historyHeader'>Workout</TableCell>
+                            <TableCell id='historyHeader'>Exercise</TableCell>
+                            <TableCell id='historyHeader'>Weight(lb)</TableCell>
+                            <TableCell id='historyHeader'>Sets</TableCell>
+                            <TableCell id='historyHeader'>Reps</TableCell>
+                            <TableCell id='historyHeader'>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -47,8 +47,9 @@ class DayItem extends Component {
                             <>
                                 {exercise.date === this.props.day.date &&
                                     // this is where you create a table row to display all the data
-                                    <TableRow value={exercise.id}>
-                                        <TableCell><span>{exercise.date}</span></TableCell>
+                                    <TableRow value={exercise.id} id='historyRows'>
+                                        <TableCell><span>{exercise.date.substring(5, 7)+ "/" + exercise.date.substring(8, 10) + "/" + exercise.date.substring(0, 4)}</span></TableCell>
+
                                         <TableCell><span>{exercise.workout}</span></TableCell>
                                         <TableCell><span>{exercise.name}</span></TableCell>
                                         <TableCell><span>{exercise.weight}</span></TableCell>
@@ -74,3 +75,4 @@ export default connect(mapReduxStateToProps)(DayItem)
 
 
 
+// dateString.substring(5, 7) + "/" + dateString.substring(8, 10) + "/" + dateString.substring(0, 4)
