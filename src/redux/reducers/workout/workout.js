@@ -24,6 +24,9 @@ const update = (state = [], action) => {
     }
 }
 
+
+
+
 // this will be used to retrieve all Workouts from the db
 const getNewWorkout = (state = [], action) => {
     switch (action.type) {

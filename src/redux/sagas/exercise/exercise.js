@@ -2,27 +2,39 @@ import axios from 'axios';
 import { put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga/effects';
 
-// import { func } from 'prop-types';
-
 //this will hold all of our SAGAS and must be exported to the rootSaga
-
 function* postWorkoutToExercise(action) {
     // console.log('posting to the workout table');
     try {
         console.log(action.payload);
         // this route needs to match the post route in our server (template.router)
         yield axios.post('/api/template/workout', action.payload)
-        const recentWorkout = yield axios.get('api/template/workout_exercise/current')
-        console.log('this is the log after the post', recentWorkout.data); //run this after you update in my reducer?
-        //this runs becauese of our action from the handleClickToSaveWorkout from the select page.
+        //run this after you update in my reducer?
+        yield put({ type: 'FETCH_CURRENT_WORKOUT'});
+        //this runs because of our action from the handleClickToSaveWorkout from the select page.
         // SET_WORKOUT is from workout.js - it is from workout Reducer it will set the workouts that have been posted
-        yield put({ type: 'SET_WORKOUT', payload:recentWorkout.data})//run this after u update
+        // yield put({ type: 'SET_WORKOUT', payload:recentWorkout.data})//run this after u update
+
         // console.log('response from axios', response.data);
         // console.log('posted new workouts to the database');
     } catch (error) {
         console.log('ERROR making the POST request/query to the database', error);
     }
 }
+
+
+function* getCurrentExercisesForTheDay(action) {
+    // console.log('posting to the workout table');
+    try {
+        const recentWorkout = yield axios.get('api/template/workout_exercise/current')
+        console.log('this is the log after the post', recentWorkout.data); //run this after you update in my reducer?
+        yield put({ type: 'SET_WORKOUT', payload: recentWorkout.data });
+    } catch (error) {
+        console.log('ERROR making the GET request/query to the database', error);
+    }
+}
+
+
 
 
 function* getWorkoutsFromDatabase(action) {
@@ -47,14 +59,16 @@ function* getWorkoutHistory() {
         console.log('ERROR making GET request/query', error);
     }
 }
-
+//action.payload everything in state dispatching from workoutTableItem
+//payload is an object with workout_id, exercise_id, weight, sets, reps, and id
 function* updateWorkoutSaga(action) {
-    // console.log('this will allow me to add/update my track page after editing');
+    console.log('this will allow me to add/update my track page after editing', action.payload);
     try {
-        const axiosResponse = yield axios.put('/api/template/workout_exercise', action.payload);
+        yield axios.put('/api/template/workout_exercise', action.payload);
         // console.log('IMPORTANT RESPONSE', axiosResponse)
-        yield put({ type: 'FETCH_EDITED_WORKOUT', payload: axiosResponse.data });
-        // yield put({ type: 'FETCH_EDITED_WORKOUT', payload: updatedOb });
+        yield put({ type: 'FETCH_CURRENT_WORKOUT'});
+        // yield put({ type: 'FETCH_EDITED_WORKOUT', payload: axiosResponse.data });
+        // yield put({ type: 'FETCH_EDITED_WORKOUT', payload: updatedObject });
         // yield put({ type: 'FETCH_EDITED_WORKOUT' }) // this will/should grab data edited on the track page from the database?
         // what am i sending back? sending newly updated data back to the client to be displayed on the Track workout page
         // where am i sending it to? 
@@ -74,13 +88,12 @@ function* deleteWorkoutFromHistory(action) {
         // yield put({ type: 'FETCH__WORKOUT' })
         // console.log('old logged data has been deleted from the database?')
         yield put({ type: 'GET_ENTIRE_HISTORY' })
-        yield put({type:'GET_HISTORY'})
-        // stuck here making this delete route. don't know how to proceed.
-        //TODO: GET the delete working for client and server}
+        yield put({ type: 'GET_HISTORY' })
     } catch (error) {
         console.log('error making DELETE query', error);
     }
 }
+//TODO: GET the delete working for client and server}
 
 //this will get the Workout table that contains the muscle group being worked on
 function* getWorkoutDate() {
@@ -120,6 +133,7 @@ function* exerciseSaga() {
     yield takeLatest('GET_HISTORY', getWorkoutHistory)
     yield takeLatest('GET_WORKOUT_DATE', getWorkoutDate)
     yield takeLatest('GET_ENTIRE_HISTORY', getEntireWorkoutHistory)
+    yield takeLatest('FETCH_CURRENT_WORKOUT', getCurrentExercisesForTheDay)
     // yield takeLatest('_WORKOUT', deleteWorkoutFromHistory)
 }
 export default exerciseSaga;

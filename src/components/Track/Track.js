@@ -22,6 +22,7 @@ class Track extends Component {
   }
 
   componentDidMount() {
+    this.props.dispatch({type:'FETCH_CURRENT_WORKOUT'});
   }
 
 
@@ -77,9 +78,13 @@ class Track extends Component {
           <button onClick={this.handleLogWorkout}>Log Workout</button>
         </>
         
-        <pre>
-          <p>json.stringify props.workout</p>
+        {/* <pre> *
+          {/* <p>json.stringify props.workout</p>
           {this.props.reduxState.workout && JSON.stringify(this.props.reduxState.workout.workout, null, 2)}
+        </pre> */}
+
+        <pre>
+          {JSON.stringify(this.props.reduxState, null, 2)}
         </pre>
       </div>
 

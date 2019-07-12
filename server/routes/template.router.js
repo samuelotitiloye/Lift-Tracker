@@ -87,25 +87,29 @@ const sort = (array) => {
  * PUT/UPDATE route : this is our update route for the track workout page when the we edit a workout
  */
 router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
-    console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!', req.body);
+    console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!');
+    console.log(req.body);
+    // res.sendStatus(200);
+    
     const queryText = `UPDATE "workout_exercise" 
     SET "workout_id" =$1, 
     "exercise_id" =$2, 
     "weight"=$3,
     "sets"=$4,
     "reps" =$5
-    WHERE "workout_exercise"."id"=$6
-    RETURNING "workout_exercise"."id";`;
-    const updateWorkout = [req.body.workout, req.body.exercise, req.body.weight, req.body.sets, req.body.reps, req.body.id];
-    console.log('update workout', updateWorkout)
+    WHERE "workout_exercise"."id"=$6;`;
+    const updateWorkout = [req.body.workout_id, req.body.exercise_id, req.body.weight, req.body.sets, req.body.reps, req.body.id];
+    // console.log('update workout', updateWorkout)
     pool.query(queryText, updateWorkout)
         .then(result => {
-            res.send(result.rows)
+            res.sendStatus(200);
         }).catch((error) => {
             console.log('error making UPDATE/PUT request', error);
             res.sendStatus(500)
         })
 })
+
+// RETURNING "workout_exercise"."id"
 
 /**
  * GET route to get all workouts dates from the database
@@ -129,14 +133,15 @@ router.get('/workout', rejectUnauthenticated, (req, res) => {
  */
 
 router.get('/workout_exercise/current', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT "workout_exercise"."date", "workout"."name" AS "workout.name", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" 
+    const queryText = `SELECT "workout_exercise"."date", "workout"."id" AS "workout_id", "exercise"."id" AS "exercise_id", "weight", "sets", "reps", "workout_exercise"."id" 
     FROM "workout_exercise"
     JOIN "workout" 
     ON "workout_id"="workout"."id"
     JOIN "exercise"
     ON "exercise_id"="exercise"."id" 
-    WHERE "workout_exercise"."date" = CURRENT_DATE;`
-    console.log('get just the workout dates');
+    WHERE "workout_exercise"."date" = CURRENT_DATE
+    ORDER BY "id" DESC;`
+    console.log('get just the current most recent workout');
     pool.query(queryText)
         .then(result => {
             res.send(result.rows)
@@ -156,7 +161,7 @@ router.get('/workout_exercise/all', rejectUnauthenticated, (req, res) => {
     ON "workout_id"="workout"."id"
     JOIN "exercise"
     ON "exercise_id"="exercise"."id" 
-    ORDER BY "workout_exercise"."date";`;
+    ORDER BY "workout_exercise"."date" DESC;`;
     console.log('getting the whole history from the database');
     pool.query(queryText)
         .then(result => {

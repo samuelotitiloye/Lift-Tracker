@@ -161,6 +161,12 @@ class Select extends Component {
                     <button onClick={this.handleclickToSaveWorkout} id=''>Save Workout</button>
                 </MuiThemeProvider>
                 </>
+                <pre>
+                {JSON.stringify(this.state, null, 2)}
+                </pre>
+                <pre>
+                {JSON.stringify(this.reduxState, null, 2)}
+                </pre>
             </div>
         );
     }
