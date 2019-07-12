@@ -133,3 +133,12 @@ JOIN "workout"
 ON "workout_id"
 WHERE "workout_id"="id"
 ORDER BY "date";
+
+--query to select all of workout_exercise history//-- query to get recent workout for edit/update functionality
+SELECT "workout_exercise"."date", "workout"."name" AS "workout.name", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" 
+FROM "workout_exercise"
+JOIN "workout" 
+ON "workout_id"="workout"."id"
+JOIN "exercise"
+ON "exercise_id"="exercise"."id" 
+WHERE "workout_exercise"."date"= CURRENT_DATE;
