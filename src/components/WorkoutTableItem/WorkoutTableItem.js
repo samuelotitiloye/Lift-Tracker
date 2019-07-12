@@ -83,7 +83,7 @@ class workoutTableItem extends Component {
         }, () => {
             this.props.dispatch({
                 type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js component)
-                payload: updatedObject,
+                payload: updatedObject, // This payload should contain the object that i want to update.
                 // payload: this.state.workout,
             })
         })
