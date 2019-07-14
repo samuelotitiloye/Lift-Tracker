@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Container } from '@material-ui/core';
+import './RegisterPage.css'
+
 
 class RegisterPage extends Component {
   state = {
@@ -31,7 +34,9 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className='registerBackground'>
+        <div class="overlay">
+          <Container component='main' maxWidth='xs'>
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -82,6 +87,8 @@ class RegisterPage extends Component {
             Login
           </button>
         </center>
+        </Container>
+        </div>
       </div>
     );
   }

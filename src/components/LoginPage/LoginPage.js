@@ -5,7 +5,7 @@ import { Theme } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 import {createMuiTheme} from '@material-ui/styles';
 import { blue, green } from '@material-ui/core/colors';
-// import dumbellRack from '../Image/dumbellRack';
+import   './LoginPage.css'
 
 // const theme =  createMuiTheme({
 //   palatte: {
@@ -21,7 +21,6 @@ class LoginPage extends Component {
     password: '',
   };
 
-  componentDidMount
   
 
   // const theme = createMuiTheme({
@@ -60,7 +59,6 @@ class LoginPage extends Component {
       
       <div className="loginBackground">
         <div class="overlay">
-          {/* <ThemeProvider theme={theme}> */}
             <Container component='main' maxWidth='xs'>
               {/* <img src={dumbellRack} alt='image of a rack of dumbells'/> */}
           {this.props.errors.loginMessage && (

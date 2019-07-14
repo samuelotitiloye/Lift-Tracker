@@ -18,15 +18,14 @@ class workoutTableItem extends Component {
         }
     }
 
-
     componentDidMount() {
         this.setState({
-            workout:{
-            workout_id: this.props.exercise.workout_id,
-            exercise_id: this.props.exercise.exercise_id,
-            weight: this.props.exercise.weight,
-            sets: this.props.exercise.sets,
-            reps: this.props.exercise.reps,
+            workout: {
+                workout_id: this.props.exercise.workout_id,
+                exercise_id: this.props.exercise.exercise_id,
+                weight: this.props.exercise.weight,
+                sets: this.props.exercise.sets,
+                reps: this.props.exercise.reps,
             }
         })
     }
@@ -45,7 +44,7 @@ class workoutTableItem extends Component {
 
     handleChangeExercise = (event, index, value) => {
         // console.log('logging the value of this exercise', value);
-        // set workout to the value/workout selected
+        // set exercise to the value/workout selected
         this.setState({
             ...this.state,
             workout: {
@@ -54,8 +53,6 @@ class workoutTableItem extends Component {
             }
         });
     }
-
-
 
     handleChangeInEdit = (propertyName) => (event) => {
         //we need to spread state , and event in order to keep the original state then 
@@ -72,33 +69,20 @@ class workoutTableItem extends Component {
     }
 
     handleSaveEdit = () => {
-        // const updatedObject = {
-        //     ...this.state.workout,
-        //     id: this.props.exercise.id,
-        // }
-        // console.log('we are going to add our newly edited workout/exercise', updatedObject);
-        // this.setState({
-        //     workout: {
-        //         ...this.state.workout,
-        //         id: this.props.reduxState.workout.workout[0].id
-        //     }
-        // }, () => {
-            this.props.dispatch({
-                type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js component)
-                payload: {...this.state.workout, id:this.props.exercise.id},//this payload has everything from state and exercise id being passed down from props(from Track.js) //updatedObject, // This payload should contain the object that i want to update.
-                // payload: this.state.workout,
-            })
-        // })
+        this.props.dispatch({
+            type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js component)
+            //this payload has everything from state and exercise id being passed down from props(from Track.js) 
+            // This payload should contains the object that i want to update.
+            payload: { ...this.state.workout, id: this.props.exercise.id },
+            
+        })
+        this.setState({ inEditMode: !this.state.inEditMode })
     }
-
-    //save to local state on change
-    //onsave update database
-    //then reget your database from the sagas?
-
 
     handleClickToEdit = () => {
         console.log('i can update my workouts!!!!!!!!!!!!!!!!!!!')
         this.setState({ inEditMode: !this.state.inEditMode })
+        
         // this.props.dispatch({ type: 'UPDATE_WORKOUT', payload: this.state }) //this action will be called in 
     }
 
@@ -111,7 +95,7 @@ class workoutTableItem extends Component {
 
                 <TableRow>
                     <TableCell>
-                        {/* {this.state.inEditMode ?
+                        {this.state.inEditMode ?
                             <MuiThemeProvider>
                                 <DropDownMenu
                                     value={this.state.workout.workout_id}
@@ -126,35 +110,13 @@ class workoutTableItem extends Component {
                             </MuiThemeProvider>
                             :
                             <>
-                                {this.props.exercise.id}
-                                {this.props.exercise.name}
+                                {this.state.workout.workout_id === 1 && 'Chest'}
+                                {this.state.workout.workout_id === 2 && 'Glutes'}
+                                {this.state.workout.workout_id === 3 && 'Shoulders'}
+                                {this.state.workout.workout_id === 4 && 'Legs'}
+                                {this.state.workout.workout_id === 5 && 'Back'}
                             </>
-                        } */}
-                         {this.state.inEditMode ?
-                            <MuiThemeProvider>
-                                <DropDownMenu
-                                    value={this.state.workout.workout_id}
-                                    onChange={this.handleChangeWorkout}
-                                >
-                                    <MenuItem value={1} primaryText="Chest" />
-                                    <MenuItem value={2} primaryText="Glutes" />
-                                    <MenuItem value={3} primaryText="Shoulders" />
-                                    <MenuItem value={4} primaryText="Legs" />
-                                    <MenuItem value={5} primaryText="Back" />
-                                </DropDownMenu>
-                            </MuiThemeProvider>
-                            :
-                          
-                                // {this.props.exercise.id}
-                                // {this.props.exercise.name}
-                            <>
-                               {this.state.workout.workout_id === 1 && 'Chest'}
-                               {this.state.workout.workout_id === 2 && 'Glutes'}
-                               {this.state.workout.workout_id === 3 && 'Shoulders'}
-                               {this.state.workout.workout_id === 4 && 'Legs'}
-                               {this.state.workout.workout_id === 5 && 'Back'}
-                            </>
-                           
+
                         }
                     </TableCell>
                     <TableCell>
@@ -173,11 +135,11 @@ class workoutTableItem extends Component {
                             </MuiThemeProvider>
                             :
                             <>
-                               {this.state.workout.exercise_id === 1 && 'Bench Press'}
-                               {this.state.workout.exercise_id === 2 && 'Hip Thrust'}
-                               {this.state.workout.exercise_id === 3 && 'Over Head Press'}
-                               {this.state.workout.exercise_id === 4 && 'Squats'}
-                               {this.state.workout.exercise_id === 5 && 'Deadlifts'}
+                                {this.state.workout.exercise_id === 1 && 'Bench Press'}
+                                {this.state.workout.exercise_id === 2 && 'Hip Thrust'}
+                                {this.state.workout.exercise_id === 3 && 'Over Head Press'}
+                                {this.state.workout.exercise_id === 4 && 'Squats'}
+                                {this.state.workout.exercise_id === 5 && 'Deadlifts'}
                             </>
                         }
                     </TableCell>
@@ -219,11 +181,8 @@ class workoutTableItem extends Component {
                         }
                     </TableCell>
                 </TableRow>
-                <pre>
-                    {JSON.stringify(this.state, null, 2)}
-                </pre>
                 {/* <pre>
-                    {JSON.stringify(this.props, null, 2)}
+                    {JSON.stringify(this.state, null, 2)}
                 </pre> */}
             </>
         );

@@ -1,0 +1,12 @@
+.registerBackground {
+    background-image: url(../../Image/dumbbellRack.png);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+    margin: auto;
+    overflow: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }

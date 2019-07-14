@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
 
-
 // this will house all of our workout REDUCERS  and must be exported to the root/ main reducer
 // Used to store workout returned from the server
 const workout = (state = [], action) => {
@@ -23,9 +22,6 @@ const update = (state = [], action) => {
             return state;
     }
 }
-
-
-
 
 // this will be used to retrieve all Workouts from the db
 const getNewWorkout = (state = [], action) => {

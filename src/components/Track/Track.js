@@ -6,6 +6,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import WorkoutTableItem from '../WorkoutTableItem/WorkoutTableItem';
+import './Track.css'
+// import Swal from 'sweetalert2';
+
 
 
 class Track extends Component {
@@ -21,10 +24,12 @@ class Track extends Component {
     }
   }
 
+  
+
   componentDidMount() {
     this.props.dispatch({type:'FETCH_CURRENT_WORKOUT'});
+    // const Swal = require('sweetalert2');
   }
-
 
   handleChangeNewWorkout = (event, index, value) => {
     // set workout to the value/workout selected
@@ -35,8 +40,7 @@ class Track extends Component {
     // set workout to the value/workout selected
     this.setState({ workout: { ...this.state.workout, exercise: value } });
   }
-
-
+//this function will target the Log Workout button
   handleLogWorkout = () => {
     console.log('we can totally save/log our workout!!!!');
     this.props.history.push('/history');
@@ -48,14 +52,7 @@ class Track extends Component {
   // Renders the entire app on the DOM
   render() {
     return (
-      <div>
-        {/* <pre>
-          {JSON.stringify(this.props, null, 2)}
-        </pre> */}
-        {/* <pre>
-          {JSON.stringify(this.state)}
-        </pre> */}
-        {/* {this.state.inEditMode ? */}
+      <div className='trackBackground'>
         <>
           <Table>
             <TableHead>
@@ -83,9 +80,9 @@ class Track extends Component {
           {this.props.reduxState.workout && JSON.stringify(this.props.reduxState.workout.workout, null, 2)}
         </pre> */}
 
-        <pre>
+        {/* <pre>
           {JSON.stringify(this.props.reduxState, null, 2)}
-        </pre>
+        </pre> */}
       </div>
 
     )

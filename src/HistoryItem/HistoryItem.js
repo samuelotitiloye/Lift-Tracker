@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 
-
+//this is a child of the workoutTableItem -  the map created here is used inside of the workoutTableItem component.
+//mapping through reduxState here to get workout_exercise_history which is an action type dispatched 
+//from the sagas after a get request to get workout_exercise_history from the database
 class HistoryItem extends Component {
     componentDidMount() {
-        
+
     }
 
 
