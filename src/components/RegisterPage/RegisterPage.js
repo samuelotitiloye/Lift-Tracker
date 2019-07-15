@@ -34,7 +34,7 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div className='registerBackground'>
+      <div className='dumbellBackground'>
         <div className="overlay">
           <Container component='main' maxWidth='xs'>
         {this.props.errors.registrationMessage && (
@@ -46,7 +46,7 @@ class RegisterPage extends Component {
           </h2>
         )}
         <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
+          <h1>Register</h1>
           <div>
             <label htmlFor="username">
               Username:
@@ -80,6 +80,7 @@ class RegisterPage extends Component {
         </form>
         <center>
           <button
+          id="registerButton"
             type="button"
             className="link-button"
             onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}

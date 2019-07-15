@@ -28,7 +28,9 @@ class DayItem extends Component {
     render() {
         return (
             <div>
-
+                <>
+                    {/* ThrowBack */}
+                </>
                 {/* <pre>{JSON.stringify(this.props.day.date)}</pre> */}
                 {/* <pre>{JSON.stringify(this.props.reduxState.workout.getEntireHistory, null, 2)}</pre> */}
 

@@ -11,10 +11,26 @@
     background-size: cover;
     }
 
-/* .selectWorkout {
-background-color:;
-} */
+.selectWorkout, .dropdownBackground, .selectExercise {
+background-color:black;
+opacity: 0.5;
+filter:alpha(opacity=0);
+border-style: hidden;
+}
 
-/* .selectExercise {
 
-} */
+.cardContent {
+    width: 50%;
+}
+
+#weights {
+   
+}
+
+#addExercise {
+    background-color: grey;
+    padding: 10px;
+    border-radius: 12px;
+    margin: 20px;
+}
+

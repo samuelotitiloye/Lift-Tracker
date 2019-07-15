@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Container } from '@material-ui/core';
 // import {createMuiTheme} from '@material-ui/styles';
 // import { blue, green } from '@material-ui/core/colors';
-import './LoginPage.css';
 
 // const theme =  createMuiTheme({
 //   palatte: {
@@ -56,8 +55,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      
-      <div className="loginBackground">
+      <div className="dumbellBackground">
         <div className="overlay">
             <Container component='main' maxWidth='xs'>
               {/* <img src={dumbellRack} alt='image of a rack of dumbells'/> */}
@@ -104,6 +102,7 @@ class LoginPage extends Component {
           </form>
           <center>
             <button
+            id="registerButton"
               type="button"
               className="link-button"
               onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}

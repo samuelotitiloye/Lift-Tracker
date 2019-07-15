@@ -10,6 +10,7 @@ import '../UserPage/UserPage';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { CardContent } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 
 class Select extends Component {
@@ -98,19 +99,19 @@ class Select extends Component {
                 <UserPage />
                 <Grid container justify="center" spacing={4}>
                     <>
-                        <Grid item xs={6} >
+                        <Grid item xs={4} >
                             <MuiThemeProvider>
                                 <AppBar
                                     className='selectWorkout'
                                     title="CHOOSE A WORKOUT"
                                     style={
                                         {
-                                            background: "#008080"
+                                            background: "black"
                                         }
                                     }
                                     titleStyle={
                                         {
-                                            color: "#FFFFF"
+                                            color: "WHITE"
                                         }
                                     }
                                     showMenuIconButton={false}
@@ -118,10 +119,7 @@ class Select extends Component {
                                 <div>
                                     {this.pageControl()}
                                 </div>
-                                {/* <pre>
-                        {JSON.stringify(this.state.singleWorkout, null, 2)}
-                    </pre> */}
-
+                                <div className="dropdownBackground">
                                 <DropDownMenu id={this.workout}
                                     value={this.state.workoutObject.workout}
                                     onChange={this.handleChangeWorkout}
@@ -133,24 +131,25 @@ class Select extends Component {
                                     <MenuItem value={5} primaryText="Back" />
 
                                 </DropDownMenu>
+                                </div>
 
                                 <br /><br /><br />
                                 {/* <button onClick={this.handleclick}></button> */}
                             </MuiThemeProvider>
                         </Grid>
-                        <Grid item xs={6} >
+                        <Grid item xs={4} >
                             <MuiThemeProvider>
                                 <AppBar
                                     className="selectExercise"
                                     title="CHOOSE AN EXERCISE"
                                     style={
                                         {
-                                            background: "#008080"
+                                            background: "black"
                                         }
                                     }
                                     titleStyle={
                                         {
-                                            color: "#FFFFF"
+                                            color: "white"
                                         }
                                     }
                                     showMenuIconButton={false}
@@ -158,6 +157,7 @@ class Select extends Component {
                                 <div>
                                     {this.pageControl()}
                                 </div>
+                                <div className="dropdownBackground">
                                 <DropDownMenu id={this.exercise}
                                     value={this.state.workoutObject.exercise}
                                     onChange={this.handleChangeExercise}
@@ -168,27 +168,24 @@ class Select extends Component {
                                     <MenuItem value={4} primaryText="Squats" />
                                     <MenuItem value={5} primaryText="Deadlifts" />
                                 </DropDownMenu>
+                                </div>
                             </MuiThemeProvider>
                         </Grid>
                     </>
                 </Grid>
                 <Grid container justify="center">
                     <Grid item xs={6}>
-                        <input onChange={this.handleChange('weight')} placeholder="weight" />
-                        <input onChange={this.handleChange('sets')} placeholder="sets" />
-                        <input onChange={this.handleChange('reps')} placeholder="reps" />
+                        <center>
+                            <input onChange={this.handleChange('weight')} placeholder="weight" id="weights" />
+                            <input onChange={this.handleChange('sets')} placeholder="sets" id="sets" />
+                            <input onChange={this.handleChange('reps')} placeholder="reps" id="reps" />
+                        </center>
                     </Grid>
                 </Grid>
-                <Grid container justify="center">
-                <Grid item xs={6} id="selectButtons">
-                    <Card className="buttons">
-                        <CardContent>
-                    <button onClick={this.handleClickToAddExercise} id='addExercise'>Add Exercise</button>
-                    <button onClick={this.handleclickToSaveWorkout} id=''>Save Workout</button>
-                    </CardContent>
-                    </Card>
-                </Grid>
-                </Grid>
+                <center>
+                    <Button onClick={this.handleClickToAddExercise} id="addExercise">Add Exercise</Button>
+                    <Button onClick={this.handleclickToSaveWorkout} id="addExercise">Save Workout</Button>
+                </center>
             </div>
         );
     }
