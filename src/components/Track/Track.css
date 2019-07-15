@@ -1,6 +1,19 @@
-.trackBackground {
-    background-image: url(../../Image/weightPlates.png);
-    height: 100%;
+#table{
+    height: 300px;
+    margin: 10;
+    /* background-image: url(//public/Image/weightPlates.png); */
+    position: absolute;
+    bottom: 185px;
+    width: 100%;
+}
+
+#tableRow {
+    background-color: white;
+} 
+
+.backgroundImage {
+    background-image: url(../Image/weightPlates.png);
+    height:350px;
     position: absolute;
     width: 100%;
     z-index: 0;
@@ -9,4 +22,59 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    }
+}
+
+#text{
+    text-align: center;
+    margin-top: -100px;
+    color:white;
+}
+
+#addEdit{
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    padding: 15px 39px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    text-align: center;
+}
+
+#editWorkout {
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    padding: 12px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    text-align: center;
+}
+
+#logWorkout{
+    position: relative;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    padding: 12px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    text-align: center;
+    bottom: -25px;
+}

@@ -1,5 +1,5 @@
 .selectBackground {
-    background-image: url(../../Image/blurryWeight.png);
+    background-image: url(../Image/blurryWeight.png);
     height: 100%;
     position: absolute;
     width: 100%;
@@ -10,3 +10,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     }
+
+/* .selectWorkout {
+background-color:;
+} */
+
+/* .selectExercise {
+
+} */

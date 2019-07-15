@@ -89,9 +89,9 @@ class workoutTableItem extends Component {
     render() {
         return (
             <>
-                <pre>
+                {/* <pre>
                     {JSON.stringify(this.props.exercise.exercise, null, 2)}
-                </pre>
+                </pre> */}
 
                 <TableRow>
                     <TableCell>
@@ -175,9 +175,9 @@ class workoutTableItem extends Component {
 
                     <TableCell>
                         {this.state.inEditMode ?
-                            <button onClick={this.handleSaveEdit}>Add</button>
+                            <button onClick={this.handleSaveEdit} id="addEdit">Add</button>
                             :
-                            <button onClick={this.handleClickToEdit}>Edit Workout</button>
+                            <button onClick={this.handleClickToEdit} id="editWorkout">Edit Workout</button>
                         }
                     </TableCell>
                 </TableRow>

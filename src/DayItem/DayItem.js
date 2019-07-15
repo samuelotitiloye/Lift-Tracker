@@ -14,10 +14,14 @@ class DayItem extends Component {
     }
 
 
-    handleDeleteWorkout = (event) => {
+    handleDeleteWorkout = (id) => {
         // this.props.history.push('/select')
-        console.log('Deleting single workout from the database/ and our history page', event.target.value);
-        this.props.dispatch({ type: 'DELETE_A_WORKOUT', payload: { id: event.target.value } })
+        console.log('Deleting single workout from the database/ and our history page');
+        this.props.dispatch({ type: 'DELETE_A_WORKOUT', payload: { id: id } });
+        this.props.dispatch({type:'GET_ENTIRE_HISTORY'});
+        this.props.dispatch({type:'GET_WORKOUT_DATE'}); // this will get the dates again to render all the history on the DOM
+        
+
     }
 
 
@@ -47,7 +51,7 @@ class DayItem extends Component {
                             <>
                                 {exercise.date === this.props.day.date &&
                                     // this is where you create a table row to display all the data
-                                    <TableRow value={exercise.id} id='historyRows'>
+                                    <TableRow key={exercise.id} value={exercise.id} id='historyRows'>
                                         <TableCell><span>{exercise.date.substring(5, 7)+ "/" + exercise.date.substring(8, 10) + "/" + exercise.date.substring(0, 4)}</span></TableCell>
 
                                         <TableCell><span>{exercise.workout}</span></TableCell>
@@ -55,7 +59,7 @@ class DayItem extends Component {
                                         <TableCell><span>{exercise.weight}</span></TableCell>
                                         <TableCell><span>{exercise.reps}</span></TableCell>
                                         <TableCell><span>{exercise.sets}</span></TableCell>
-                                        <TableCell><span><button value={exercise.id} onClick={this.handleDeleteWorkout}>Delete</button></span></TableCell>
+                                        <TableCell><span><button value={exercise.id} onClick= {()=>this.handleDeleteWorkout(exercise.id)}>Delete</button></span></TableCell>
                                         {/* except all those are in table cells instead of spans */}
                                     </TableRow>
                                 }

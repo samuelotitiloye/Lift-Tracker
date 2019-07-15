@@ -8,7 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  */
 
 router.get('/workout_exercise', rejectUnauthenticated, (req, res) => {
-    console.log('getting workouts from the database');
+    // console.log('getting workouts from the database');
     //make query request to the database
     const queryText = `SELECT "weight", "sets", "reps", "workout"."name", "workout"."date", "exercise"."name" as "exercise", "workout_exercise"."id"
     FROM "workout_exercise" 
@@ -33,7 +33,7 @@ router.get('/workout_exercise', rejectUnauthenticated, (req, res) => {
  */
 
 router.post('/workout', rejectUnauthenticated, async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const client = await pool.connect();
     try {
         client.query('BEGIN');
@@ -87,7 +87,7 @@ const sort = (array) => {
  * PUT/UPDATE route : this is our update route for the track workout page when the we edit a workout
  */
 router.put('/workout_exercise', rejectUnauthenticated, (req, res) => {
-    console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!');
+    // console.log('req.param:yooooooooooooooooooooooooooo dude!!!!!!!!!!');
     console.log(req.body);
     // res.sendStatus(200);
     

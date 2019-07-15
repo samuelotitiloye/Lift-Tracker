@@ -26,10 +26,7 @@ class History extends Component {
                     {/* {JSON.stringify(this.props.reduxState.workout.getWorkoutDate, null, 2)} */}
                 </pre>
                 {this.props.reduxState.workout.getWorkoutDate.length > 0 && this.props.reduxState.workout.getWorkoutDate.map(day =>
-                    <>
-                        <DayItem day={day} key={day.date} />
-                        <br />
-                    </>
+                    <DayItem day={day} key={day.date} />
                 )}
             </div>
         )

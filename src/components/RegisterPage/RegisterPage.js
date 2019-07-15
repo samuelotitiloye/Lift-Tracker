@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Container } from '@material-ui/core';
-import './RegisterPage.css'
+import './RegisterPage.css';
 
 
 class RegisterPage extends Component {
@@ -35,7 +35,7 @@ class RegisterPage extends Component {
   render() {
     return (
       <div className='registerBackground'>
-        <div class="overlay">
+        <div className="overlay">
           <Container component='main' maxWidth='xs'>
         {this.props.errors.registrationMessage && (
           <h2

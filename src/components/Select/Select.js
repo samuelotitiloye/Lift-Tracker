@@ -7,6 +7,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './Select.css'
 import UserPage from '../UserPage/UserPage';
 import '../UserPage/UserPage';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import { CardContent } from '@material-ui/core';
+
 
 class Select extends Component {
     state = {
@@ -19,7 +23,7 @@ class Select extends Component {
         },
         singleWorkout: []
     }
-    
+
 
     // this targets the changes that ocuur in our workout drop down list
     handleChangeWorkout = (event, index, value) => {
@@ -91,87 +95,100 @@ class Select extends Component {
     render() {
         return (
             <div className='selectBackground'>
-                <UserPage/>
-                <>
-                    <MuiThemeProvider>
-                        <AppBar
-                            title="WORKOUT"
-                            style={
-                                {
-                                    background: "#008080"
-                                }
-                            }
-                            titleStyle={
-                                {
-                                    color: "#FFFFF"
-                                }
-                            }
-                            showMenuIconButton={false}
-                        />
-                        <div>
-                            {this.pageControl()}
-                        </div>
-                        {/* <pre>
+                <UserPage />
+                <Grid container justify="center" spacing={4}>
+                    <>
+                        <Grid item xs={6} >
+                            <MuiThemeProvider>
+                                <AppBar
+                                    className='selectWorkout'
+                                    title="CHOOSE A WORKOUT"
+                                    style={
+                                        {
+                                            background: "#008080"
+                                        }
+                                    }
+                                    titleStyle={
+                                        {
+                                            color: "#FFFFF"
+                                        }
+                                    }
+                                    showMenuIconButton={false}
+                                />
+                                <div>
+                                    {this.pageControl()}
+                                </div>
+                                {/* <pre>
                         {JSON.stringify(this.state.singleWorkout, null, 2)}
                     </pre> */}
-                        <DropDownMenu id={this.workout}
-                            value={this.state.workoutObject.workout}
-                            onChange={this.handleChangeWorkout}
-                        >
-                            <MenuItem value={1} primaryText="Chest" />
-                            <MenuItem value={2} primaryText="Glutes" />
-                            <MenuItem value={3} primaryText="Shoulders" />
-                            <MenuItem value={4} primaryText="Legs" />
-                            <MenuItem value={5} primaryText="Back" />
 
-                        </DropDownMenu>
-                        <br /><br /><br />
-                        {/* <button onClick={this.handleclick}></button> */}
-                    </MuiThemeProvider>
-                    <MuiThemeProvider>
-                        <AppBar
-                            title="EXERCISE"
-                            style={
-                                {
-                                    background: "#008080"
-                                }
-                            }
-                            titleStyle={
-                                {
-                                    color: "#FFFFF"
-                                }
-                            }
-                            showMenuIconButton={false}
-                        />
-                        <div>
-                            {this.pageControl()}
-                        </div>
-                        <DropDownMenu id={this.exercise}
-                            value={this.state.workoutObject.exercise}
-                            onChange={this.handleChangeExercise}
-                        >
-                            <MenuItem value={1} primaryText="Bench Press" />
-                            <MenuItem value={2} primaryText="Hip Thrust" />
-                            <MenuItem value={3} primaryText="Over Head Press" />
-                            <MenuItem value={4} primaryText="Squats" />
-                            <MenuItem value={5} primaryText="Deadlifts" />
+                                <DropDownMenu id={this.workout}
+                                    value={this.state.workoutObject.workout}
+                                    onChange={this.handleChangeWorkout}
+                                >
+                                    <MenuItem value={1} primaryText="Chest" />
+                                    <MenuItem value={2} primaryText="Glutes" />
+                                    <MenuItem value={3} primaryText="Shoulders" />
+                                    <MenuItem value={4} primaryText="Legs" />
+                                    <MenuItem value={5} primaryText="Back" />
 
-                        </DropDownMenu>
-                        <br /><br /><br />
+                                </DropDownMenu>
+
+                                <br /><br /><br />
+                                {/* <button onClick={this.handleclick}></button> */}
+                            </MuiThemeProvider>
+                        </Grid>
+                        <Grid item xs={6} >
+                            <MuiThemeProvider>
+                                <AppBar
+                                    className="selectExercise"
+                                    title="CHOOSE AN EXERCISE"
+                                    style={
+                                        {
+                                            background: "#008080"
+                                        }
+                                    }
+                                    titleStyle={
+                                        {
+                                            color: "#FFFFF"
+                                        }
+                                    }
+                                    showMenuIconButton={false}
+                                />
+                                <div>
+                                    {this.pageControl()}
+                                </div>
+                                <DropDownMenu id={this.exercise}
+                                    value={this.state.workoutObject.exercise}
+                                    onChange={this.handleChangeExercise}
+                                >
+                                    <MenuItem value={1} primaryText="Bench Press" />
+                                    <MenuItem value={2} primaryText="Hip Thrust" />
+                                    <MenuItem value={3} primaryText="Over Head Press" />
+                                    <MenuItem value={4} primaryText="Squats" />
+                                    <MenuItem value={5} primaryText="Deadlifts" />
+                                </DropDownMenu>
+                            </MuiThemeProvider>
+                        </Grid>
+                    </>
+                </Grid>
+                <Grid container justify="center">
+                    <Grid item xs={6}>
                         <input onChange={this.handleChange('weight')} placeholder="weight" />
                         <input onChange={this.handleChange('sets')} placeholder="sets" />
                         <input onChange={this.handleChange('reps')} placeholder="reps" />
-                        <br /><br /><br />
-                        <button onClick={this.handleClickToAddExercise} id='addExercise'>Add Exercise</button>
-                        <button onClick={this.handleclickToSaveWorkout} id=''>Save Workout</button>
-                    </MuiThemeProvider>
-                </>
-                <pre>
-                    {JSON.stringify(this.state, null, 2)}
-                </pre>
-                <pre>
-                    {JSON.stringify(this.reduxState, null, 2)}
-                </pre>
+                    </Grid>
+                </Grid>
+                <Grid container justify="center">
+                <Grid item xs={6} id="selectButtons">
+                    <Card className="buttons">
+                        <CardContent>
+                    <button onClick={this.handleClickToAddExercise} id='addExercise'>Add Exercise</button>
+                    <button onClick={this.handleclickToSaveWorkout} id=''>Save Workout</button>
+                    </CardContent>
+                    </Card>
+                </Grid>
+                </Grid>
             </div>
         );
     }

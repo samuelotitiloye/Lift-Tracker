@@ -6,7 +6,7 @@ import { takeLatest } from 'redux-saga/effects';
 function* postWorkoutToExercise(action) {
     // console.log('posting to the workout table');
     try {
-        console.log(action.payload);
+        // console.log(action.payload);
         // this route needs to match the post route in our server (template.router)
         yield axios.post('/api/template/workout', action.payload)
         //run this after you update in my reducer?
@@ -42,7 +42,7 @@ function* getWorkoutsFromDatabase(action) {
     try {
         const response = yield axios.get(`api/template/workout_exercise`)
         // yield put({ type: 'GET_WORKOUT', payload: response.data })
-        // console.log('response for the get route after editing workout', response.data);
+        console.log('response for the get route after editing workout', response.data);
         // yield put({ type: '' })
     } catch (error) {
         console.log('ERROR making GET request/query', error);
@@ -62,7 +62,7 @@ function* getWorkoutHistory() {
 //action.payload everything in state dispatching from workoutTableItem
 //payload is an object with workout_id, exercise_id, weight, sets, reps, and id
 function* updateWorkoutSaga(action) {
-    console.log('this will allow me to add/update my track page after editing', action.payload);
+    // console.log('this will allow me to add/update my track page after editing', action.payload);
     try {
         yield axios.put('/api/template/workout_exercise', action.payload);
         // console.log('IMPORTANT RESPONSE', axiosResponse)
@@ -89,6 +89,7 @@ function* deleteWorkoutFromHistory(action) {
         // console.log('old logged data has been deleted from the database?')
         yield put({ type: 'GET_ENTIRE_HISTORY' })
         yield put({ type: 'GET_HISTORY' })
+        yield put ({type:'GET_WORKOUT_DATE'});
     } catch (error) {
         console.log('error making DELETE query', error);
     }
@@ -98,7 +99,7 @@ function* deleteWorkoutFromHistory(action) {
 //this will get the Workout table that contains the muscle group being worked on
 function* getWorkoutDate() {
     try {
-        console.log('get just the workout table');
+        // console.log('get just the workout table');
         const getJustWorkoutTable = yield axios.get('api/template/workout')
         yield put({ type: 'SET_WORKOUT_TABLE', payload: getJustWorkoutTable.data })
     } catch (error) {
@@ -108,7 +109,7 @@ function* getWorkoutDate() {
 
 //this saga will the entire workout history from the database to populate the history page
 function* getEntireWorkoutHistory() {
-    console.log('get the whole entire workout history from the database for me');
+    // console.log('get the whole entire workout history from the database for me');
     try {
         const getTheEntireWorkoutHistory = yield axios.get('api/template/workout_exercise/all')
         yield put({ type: 'SET_ENTIRE_WORKOUT_HISTORY', payload: getTheEntireWorkoutHistory.data })

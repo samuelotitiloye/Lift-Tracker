@@ -24,10 +24,10 @@ class Track extends Component {
     }
   }
 
-  
+
 
   componentDidMount() {
-    this.props.dispatch({type:'FETCH_CURRENT_WORKOUT'});
+    this.props.dispatch({ type: 'FETCH_CURRENT_WORKOUT' });
     // const Swal = require('sweetalert2');
   }
 
@@ -40,7 +40,7 @@ class Track extends Component {
     // set workout to the value/workout selected
     this.setState({ workout: { ...this.state.workout, exercise: value } });
   }
-//this function will target the Log Workout button
+  //this function will target the Log Workout button
   handleLogWorkout = () => {
     console.log('we can totally save/log our workout!!!!');
     this.props.history.push('/history');
@@ -53,38 +53,32 @@ class Track extends Component {
   render() {
     return (
       <div className='trackBackground'>
-        <>
-          <Table>
+        
+        <div  className="backgroundImage"/>
+        
+        <div id="table">
+        <h2 id="text">Track and Edit Your Workouts</h2>
+          <Table >
             <TableHead>
-              <TableRow>
+              <TableRow id="tableRow">
                 <TableCell>Workout</TableCell>
                 <TableCell>Exercise</TableCell>
                 <TableCell>Weight(lb)</TableCell>
                 <TableCell>Sets</TableCell>
                 <TableCell>Reps</TableCell>
                 <TableCell>Date</TableCell>
-                <TableCell>Add</TableCell>
+                <TableCell>Add/Edit</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody id="tBody">
               {this.props.reduxState.workout.workout.length > 0 && this.props.reduxState.workout.workout.map(exercise =>
-                <WorkoutTableItem key={exercise.id} exercise={exercise}  id='trackTable'/>
+                <WorkoutTableItem key={exercise.id} exercise={exercise} id='trackTable' />
               )}
             </TableBody>
           </Table>
-          <button onClick={this.handleLogWorkout}>Log Workout</button>
-        </>
-        
-        {/* <pre> *
-          {/* <p>json.stringify props.workout</p>
-          {this.props.reduxState.workout && JSON.stringify(this.props.reduxState.workout.workout, null, 2)}
-        </pre> */}
-
-        {/* <pre>
-          {JSON.stringify(this.props.reduxState, null, 2)}
-        </pre> */}
-      </div>
-
+          <button onClick={this.handleLogWorkout} id="logWorkout">Log Workout</button>
+        </div>
+        </div>
     )
   }
 }

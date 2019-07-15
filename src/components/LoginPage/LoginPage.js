@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ThemeProvider } from '@material-ui/styles';
-import { Theme } from '@material-ui/core/styles';
+// import { ThemeProvider } from '@material-ui/styles';
+// import { Theme } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
-import {createMuiTheme} from '@material-ui/styles';
-import { blue, green } from '@material-ui/core/colors';
-import   './LoginPage.css'
+// import {createMuiTheme} from '@material-ui/styles';
+// import { blue, green } from '@material-ui/core/colors';
+import './LoginPage.css';
 
 // const theme =  createMuiTheme({
 //   palatte: {
@@ -58,7 +58,7 @@ class LoginPage extends Component {
     return (
       
       <div className="loginBackground">
-        <div class="overlay">
+        <div className="overlay">
             <Container component='main' maxWidth='xs'>
               {/* <img src={dumbellRack} alt='image of a rack of dumbells'/> */}
           {this.props.errors.loginMessage && (
