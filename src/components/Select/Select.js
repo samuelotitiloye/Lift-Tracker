@@ -129,12 +129,10 @@ class Select extends Component {
                                     <MenuItem value={3} primaryText="Shoulders" />
                                     <MenuItem value={4} primaryText="Legs" />
                                     <MenuItem value={5} primaryText="Back" />
-
                                 </DropDownMenu>
                                 </div>
 
                                 <br /><br /><br />
-                                {/* <button onClick={this.handleclick}></button> */}
                             </MuiThemeProvider>
                         </Grid>
                         <Grid item xs={4} >
@@ -176,9 +174,9 @@ class Select extends Component {
                 <Grid container justify="center">
                     <Grid item xs={6}>
                         <center>
-                            <input onChange={this.handleChange('weight')} placeholder="weight" id="weights" />
-                            <input onChange={this.handleChange('sets')} placeholder="sets" id="sets" />
-                            <input onChange={this.handleChange('reps')} placeholder="reps" id="reps" />
+                            <input onChange={this.handleChange('weight')} placeholder="WEIGHT" id="weights" />
+                            <input onChange={this.handleChange('sets')} placeholder="SETS" id="sets" />
+                            <input onChange={this.handleChange('reps')} placeholder="REPS" id="reps" />
                         </center>
                     </Grid>
                 </Grid>

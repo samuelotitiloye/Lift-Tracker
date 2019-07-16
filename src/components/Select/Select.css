@@ -23,9 +23,6 @@ border-style: hidden;
     width: 50%;
 }
 
-#weights {
-   
-}
 
 #addExercise {
     background-color: grey;
@@ -34,3 +31,67 @@ border-style: hidden;
     margin: 20px;
 }
 
+#deleteButton {
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    padding: 12px 50px;
+    border: 2px solid none;
+    cursor: pointer;
+    border-radius: 15px;
+    text-align: center;
+    margin: 0;
+    width: 10%;
+    /* height: 3%; */
+    box-shadow: 2px 2px 1px #888888;
+    float:right;
+}
+
+/* display: inline-block;
+width: 100%;       set to 100%
+height: 100%;      set to 100%
+margin-bottom: 0.5em;
+padding-top: .6em;
+padding-bottom: .6em;
+color: #fff;
+background-color: #aaabbb;
+border-radius: 5px;
+border: solid #cccccc 1px;
+box-shadow: 2px 2px 1px #888888;
+clear:right;
+float:right; */
+
+#weights{
+    width: 33%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#sets{
+    width: 33%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#reps {
+    width: 33%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}

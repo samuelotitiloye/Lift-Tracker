@@ -161,7 +161,7 @@ router.get('/workout_exercise/all', rejectUnauthenticated, (req, res) => {
     ON "workout_id"="workout"."id"
     JOIN "exercise"
     ON "exercise_id"="exercise"."id" 
-    ORDER BY "workout_exercise"."date" DESC;`;
+    ORDER BY "workout_exercise"."date" ASC;`;
     console.log('getting the whole history from the database');
     pool.query(queryText)
         .then(result => {

@@ -5,7 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-
+// import '.././components/Select/Select.css';
 
 class DayItem extends Component {
 
@@ -61,7 +61,7 @@ class DayItem extends Component {
                                         <TableCell><span>{exercise.weight}</span></TableCell>
                                         <TableCell><span>{exercise.reps}</span></TableCell>
                                         <TableCell><span>{exercise.sets}</span></TableCell>
-                                        <TableCell><span><button value={exercise.id} onClick= {()=>this.handleDeleteWorkout(exercise.id)}>Delete</button></span></TableCell>
+                                        <TableCell><span><button value={exercise.id} onClick= {()=>this.handleDeleteWorkout(exercise.id)} id="deleteButton">Delete</button></span></TableCell>
                                         {/* except all those are in table cells instead of spans */}
                                     </TableRow>
                                 }
