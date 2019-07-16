@@ -16,6 +16,7 @@ background-color:black;
 opacity: 0.5;
 filter:alpha(opacity=0);
 border-style: hidden;
+
 }
 
 
@@ -29,27 +30,30 @@ border-style: hidden;
     padding: 10px;
     border-radius: 12px;
     margin: 20px;
+    opacity: 0.9;
+    filter:alpha(opacity=0);
+    border-style: hidden;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #deleteButton {
     position: absolute;
-    /* top: 50%;
-    left: 50%; */
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     background-color: black;
     color: white;
     font-size: 10px;
-    padding: 12px 50px;
+    padding: 12px 20px;
     border: 2px solid none;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 10px;
     text-align: center;
     margin: 0;
-    width: 10%;
-    /* height: 3%; */
+    width: 8%;
     box-shadow: 2px 2px 1px #888888;
     float:right;
+    overflow: hidden;
 }
 
 /* display: inline-block;
@@ -74,6 +78,7 @@ float:right; */
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-size: 18px;
 }
 
 #sets{
@@ -84,6 +89,7 @@ float:right; */
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-size: 18px;
 }
 
 #reps {
@@ -94,4 +100,5 @@ float:right; */
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-size: 18px;
 }

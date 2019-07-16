@@ -55,7 +55,6 @@ class DayItem extends Component {
                                     // this is where you create a table row to display all the data
                                     <TableRow key={exercise.id} value={exercise.id} id='historyRows'>
                                         <TableCell><span>{exercise.date.substring(5, 7)+ "/" + exercise.date.substring(8, 10) + "/" + exercise.date.substring(0, 4)}</span></TableCell>
-
                                         <TableCell><span>{exercise.workout}</span></TableCell>
                                         <TableCell><span>{exercise.name}</span></TableCell>
                                         <TableCell><span>{exercise.weight}</span></TableCell>
