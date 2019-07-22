@@ -142,3 +142,12 @@ ON "workout_id"="workout"."id"
 JOIN "exercise"
 ON "exercise_id"="exercise"."id" 
 WHERE "workout_exercise"."date"= CURRENT_DATE;
+
+SELECT "workout_exercise"."date", "workout"."id" AS "workout_id", "exercise"."id" AS "exercise_id", "weight", "sets", "reps", "workout_exercise"."id" 
+    FROM "workout_exercise"
+    JOIN "workout" 
+    ON "workout_id"="workout"."id"
+    JOIN "exercise"
+    ON "exercise_id"="exercise"."id" 
+    WHERE "workout_exercise"."date" = CURRENT_DATE
+    ORDER BY "id" DESC;
