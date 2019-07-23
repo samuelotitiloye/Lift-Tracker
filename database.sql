@@ -143,11 +143,59 @@ JOIN "exercise"
 ON "exercise_id"="exercise"."id" 
 WHERE "workout_exercise"."date"= CURRENT_DATE;
 
+
 SELECT "workout_exercise"."date", "workout"."id" AS "workout_id", "exercise"."id" AS "exercise_id", "weight", "sets", "reps", "workout_exercise"."id" 
-    FROM "workout_exercise"
-    JOIN "workout" 
-    ON "workout_id"="workout"."id"
-    JOIN "exercise"
-    ON "exercise_id"="exercise"."id" 
-    WHERE "workout_exercise"."date" = CURRENT_DATE
-    ORDER BY "id" DESC;
+FROM "workout_exercise"
+JOIN "workout" 
+ON "workout_id"="workout"."id"
+JOIN "exercise"
+ON "exercise_id"="exercise"."id" 
+WHERE "workout_exercise"."date" = CURRENT_DATE
+ORDER BY "id" DESC;
+
+-- INSERT query to post workout and exercise
+INSERT INTO "workout_exercise" ("workout_id", "exercise_id", "weight", "sets", "reps")
+VALUES ($1, $2, $3, $4, $5) 
+RETURNING "workout_exercise"."id";
+
+      --- query to GET newly posted workout 
+SELECT "workout_exercise"."id","weight", "sets", "reps", "workout"."name", "exercise", "workout_exercise"."date", "exercise"."name" AS "exercise_name" 
+FROM "workout_exercise" 
+JOIN "workout" 
+ON "workout_id"="workout"."id" 
+JOIN "exercise"
+ON "exercise_id"="exercise"."id" 
+WHERE "workout_exercise"."id" =$1;
+
+--- Query to UPDATE/EDIT workout/exercise
+UPDATE "workout_exercise" 
+SET "workout_id" =$1, 
+"exercise_id" =$2, 
+"weight"=$3,
+"sets"=$4,
+"reps" =$5
+WHERE "workout_exercise"."id"=$6;
+
+--- Query to get all workout dates from the database
+SELECT DISTINCT "date"
+FROM "workout_exercise"
+ORDER BY "date";
+
+---Query to get recently posted workout for edit/update page
+SELECT "workout_exercise"."date", "workout"."id" AS "workout_id", "exercise"."id" AS "exercise_id", "weight", "sets", "reps", "workout_exercise"."id" 
+FROM "workout_exercise"
+JOIN "workout" 
+ON "workout_id"="workout"."id"
+JOIN "exercise"
+ON "exercise_id"="exercise"."id" 
+WHERE "workout_exercise"."date" = CURRENT_DATE
+ORDER BY "id" DESC;
+
+-- Query to get ALL workout from History
+SELECT "workout_exercise"."date", "workout"."name" AS "workout", "exercise"."name", "weight", "sets", "reps", "workout_exercise"."id" 
+FROM "workout_exercise" 
+JOIN "workout" 
+ON "workout_id"="workout"."id"
+JOIN "exercise"
+ON "exercise_id"="exercise"."id" 
+ORDER BY "workout_exercise"."date" ASC;
