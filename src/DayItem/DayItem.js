@@ -18,7 +18,7 @@ class DayItem extends Component {
         // this.props.history.push('/select')
         console.log('Deleting single workout from the database/ and our history page');
         this.props.dispatch({ type: 'DELETE_A_WORKOUT', payload: { id: id } });
-        this.props.dispatch({type:'GET_ENTIRE_HISTORY'});
+        this.props.dispatch({type:'GET_ENTIRE_HISTORY'}); //this will get the entire history again after a single workout has been deleted
         this.props.dispatch({type:'GET_WORKOUT_DATE'}); // this will get the dates again to render all the history on the DOM
         
 
@@ -48,7 +48,7 @@ class DayItem extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {/* this map happens inside the table body */}
+                        {/* this map happens inside the table body - mapping through the data from our getEntireWorkout Saga*/}
                         {this.props.reduxState.workout.getEntireHistory.map(exercise =>
                             <>
                                 {exercise.date === this.props.day.date &&

@@ -57,7 +57,7 @@ class workoutTableItem extends Component {
     handleChangeInEdit = (propertyName) => (event) => {
         //we need to spread state , and event in order to keep the original state then 
         //edit/update the value based on what is changed in the input field
-        //needed to give each input field an id in editMode in order to grab 
+        //also needed to give each input field an id in editMode in order to grab 
         //them once and use one function to target their new value
         this.setState({
             ...this.state,
@@ -72,7 +72,7 @@ class workoutTableItem extends Component {
         this.props.dispatch({
             type: 'UPDATE_WORKOUT', // dispatching this action to ? to the sagas & reducers (exercise.js component)
             //this payload has everything from state and exercise id being passed down from props(from Track.js) 
-            // This payload should contains the object that i want to update.
+            // This payload should contain the object that i want to update.
             payload: { ...this.state.workout, id: this.props.exercise.id },
             
         })
